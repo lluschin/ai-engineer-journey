@@ -12,10 +12,32 @@ class OpenAIService(LLMService):
         self.model = settings.openai_model
     
 
-    async def createResponse(self, msg: str):
+    async def createResponse(self, msg: str) -> str:
         response = await self.client.responses.create(
             model=self.model,
             input=msg
+        )
+
+        return response.output_text
+    
+
+    async def createRagResponse(self, question: str, context: list[str]) -> str:
+        context_text = "\n\n".join(context)
+
+        prompt= f"""
+        Use the following context to answer the question.
+        If the answer is not contained in the context, say you cant find the answer.
+
+        Context:
+        {context_text}
+
+        Question:
+        {question}
+        """
+    
+        response = await self.client.responses.create(
+            model=self.model,
+            input=prompt
         )
 
         return response.output_text

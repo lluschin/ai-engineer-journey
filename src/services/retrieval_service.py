@@ -1,8 +1,19 @@
+import logging
 import numpy as np
 from openai import OpenAI
 
+from models.chat_models import Source
 
-class RetrivalService:
+logger = logging.getLogger(__name__)
+
+DOCUMENTS = [
+    "Python wurde von Guido van Rossum entwickelt.",
+    "FastAPI ist ein modernes Python Web Framework.",
+    "RAG steht für Retrieval-Augmented Generation.",
+    "Embeddings wandeln Text in numerische Vektoren um.",
+]
+
+class RetrievalService:
 
     def __init__(self):
         self.client = OpenAI()
@@ -11,25 +22,26 @@ class RetrivalService:
     
 
     def add_documents(self, docs: list[str]):
+        logger.info(f"Documents added: {docs}")
         for doc in docs:
             self.documents.append(doc)
             self.embeddings.append(self._create_embedding(doc))
 
 
-    def search(self, query: str, top_k: int = 3) -> list[dict]:
+    def search(self, query: str, top_k: int = 3) -> list[Source]:
+        logger.info(f"searching for embeddings.")
         scores = []
         embedding = self._create_embedding(query)
 
         for e in zip(self.documents, self.embeddings):
-            scores.append({
-                "document" : e[0],
-                "score": self._cosine_similarity(e[1], embedding)
-            })
+            scores.append(Source(
+                    document = e[0],
+                    score=self._cosine_similarity(e[1], embedding)
+                ))
 
-        scores.sort(key=lambda s: s["score"], reverse=True)
+        scores.sort(key=lambda s: s.score, reverse=True)
 
         return scores[:top_k]
-
 
 
     def _create_embedding(self, query: str):

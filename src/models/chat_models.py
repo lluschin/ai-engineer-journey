@@ -1,5 +1,11 @@
 from pydantic import BaseModel, Field
 
+
+class Source(BaseModel):
+    document: str
+    score: float
+
+
 class ChatRequest(BaseModel):
     user: str = Field(..., min_length=3)
     message: str = Field(..., min_length=1, max_length=1000)
@@ -8,6 +14,7 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     message: str
     model: str
+    sources: list[Source] = Field(default_factory=list)
 
 
 class EmptyMessageException(Exception):
