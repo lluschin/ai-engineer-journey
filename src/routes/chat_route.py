@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 
 from models.chat_models import ChatRequest, ChatResponse
 from services.openai_service import OpenAIService
-from services.retrieval_service import RetrievalService, DOCUMENTS
+from services.retrieval_service import RetrievalService
 
 logger = logging.getLogger(__name__)
 
@@ -11,8 +11,6 @@ chat_router = APIRouter()
 
 llm_service = OpenAIService()
 retrieval_service = RetrievalService()
-
-retrieval_service.add_documents(DOCUMENTS)
 
 @chat_router.post("/chat", response_model=ChatResponse)
 async def chat(msg: ChatRequest):
