@@ -4,18 +4,18 @@ from openai import OpenAI
 from services.chunking_service import ChunkService
 from services.qdrant_service import QdrantService
 from models.chat_models import Source
+from config.settings import Settings, loadSettings
 
 logger = logging.getLogger(__name__)
 
 class RetrievalService:
 
     def __init__(self):
+        self.settings: Settings = loadSettings()
+        
         self.client = OpenAI()
         self.qdrant = QdrantService()
-        self.chunking = ChunkService(
-            chunk_size=220,
-            overlap=100
-        )
+        self.chunking = ChunkService()
     
 
     def ingest_text(self, text: str):
@@ -30,11 +30,12 @@ class RetrievalService:
             self.qdrant.upload_embedding(embedding, doc)
 
 
-    def search(self, query: str, top_k: int = 3) -> list[Source]:
+    def search(self, query: str) -> list[Source]:
         logger.info(f"searching for embeddings.")
         embedding = self._create_embedding(query)
 
-        top_k_results = self.qdrant.search(embedding, top_k)
+        top_k_results = self.qdrant.search(embedding,
+                                           self.settings.retrieval_top_k)
         return top_k_results
 
 
