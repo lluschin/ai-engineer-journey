@@ -1,7 +1,7 @@
 import logging
-import numpy as np
 from openai import OpenAI
 
+from services.chunking_service import ChunkService
 from services.qdrant_service import QdrantService
 from models.chat_models import Source
 
@@ -12,7 +12,16 @@ class RetrievalService:
     def __init__(self):
         self.client = OpenAI()
         self.qdrant = QdrantService()
+        self.chunking = ChunkService(
+            chunk_size=220,
+            overlap=100
+        )
     
+
+    def ingest_text(self, text: str):
+        chunks = self.chunking.chunk_by_paragraph(text)
+        self.add_documents(chunks)
+
 
     def add_documents(self, docs: list[str]):
         logger.info(f"Documents added: {docs}")
