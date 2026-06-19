@@ -1,0 +1,18 @@
+import requests
+
+QUESTIONS_PATH = "./misc/demo_questions.txt"
+
+url = "http://127.0.0.1:8000/health"
+
+with open(QUESTIONS_PATH, "r") as fp:
+    questions = [q.strip() for q in fp.readlines()]
+
+for question in questions:
+    data = {
+        "user": "Wet0zelott",
+        "message": question
+    }
+
+    response = requests.post(url, json=data)
+    print(response.status_code)
+    print(response.json())
