@@ -1,11 +1,13 @@
+from config.settings import Settings, loadSettings
 
 class ChunkService:
 
-    def __init__(self, chunk_size, overlap):
-        self.chunk_size = chunk_size
-        self.overlap = overlap
+    def __init__(self):
+        self.settings: Settings = loadSettings()
+        self.chunk_size = self.settings.chunking_chunk_size
+        self.overlap = self.settings.chunking_overlap
         
-        if chunk_size <= 0:
+        if self.chunk_size <= 0:
             raise ValueError("chunk_size must be greater than 0.")
         if self.overlap <= 0:
             raise ValueError("overlap must be greater than 0.")
@@ -19,12 +21,28 @@ class ChunkService:
 
         while start < len(text):
             end = start + self.chunk_size
+
+            try:
+                # reset end to full word
+                if text[end] != " " and text[end+1] != " ":
+                    while text[end] != " ":
+                        end -= 1
+            except IndexError:
+                pass
         
             chunk = text[start:end].strip()
-            if len(chunk) > 0:
+            if len(chunk) > self.overlap:
                 chunks.append(chunk)
 
             start += (self.chunk_size - self.overlap)
+
+            try:
+                # reset start to full word
+                if text[start] != " " and text[start-1] != " ":
+                    while text[start] != " ":
+                        start -= 1
+            except IndexError:
+                pass
 
         return chunks
     
