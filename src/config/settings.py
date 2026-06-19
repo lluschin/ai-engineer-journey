@@ -8,6 +8,9 @@ from  dataclasses import dataclass
 class Settings:
     openai_model: str
     openai_reasoning: str
+    chunking_chunk_size: int
+    chunking_overlap: int
+    retrieval_top_k: int
 
 
 def loadSettings() -> Settings:
@@ -26,9 +29,18 @@ def loadSettings() -> Settings:
     _model = config["openai"]["model"]
     _reasoning = config["openai"]["reasoning"]
 
+    _chunk_size = config["chunking"]["chunk_size"]
+    _overlap = config["chunking"]["overlap"]
+
+    _top_k = config["retrieval"]["top_k"]
+
+
     settings = Settings(
-        openai_model = _model,
-        openai_reasoning = _reasoning
+        openai_model=_model,
+        openai_reasoning=_reasoning,
+        chunking_chunk_size=_chunk_size,
+        chunking_overlap=_overlap,
+        retrieval_top_k=_top_k,
     )
 
     return settings
