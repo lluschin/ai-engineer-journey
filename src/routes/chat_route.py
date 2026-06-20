@@ -55,7 +55,7 @@ async def rag_chat(msg: ChatRequest):
             )
         
         logger.info("Searching for embeddings.")
-        sources = retrieval_service.search(cleaned_message, top_k=2)
+        sources = retrieval_service.search(cleaned_message)
         docs = [src.document for src in sources]
 
         logger.info(f"Creating response for user {msg.user}")
