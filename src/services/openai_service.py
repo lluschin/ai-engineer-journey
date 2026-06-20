@@ -26,6 +26,7 @@ class OpenAIService(LLMService):
 
         prompt= f"""
         Use the following context to answer the question.
+        If the context contains information to answer the question, use it.
         If the answer is not contained in the context, say you cant find the answer.
 
         Context:
