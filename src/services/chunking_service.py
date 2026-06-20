@@ -1,11 +1,10 @@
-from config.settings import Settings, loadSettings
+import os
 
 class ChunkService:
 
     def __init__(self):
-        self.settings: Settings = loadSettings()
-        self.chunk_size = self.settings.chunking_chunk_size
-        self.overlap = self.settings.chunking_overlap
+        self.chunk_size = int(os.getenv("CHUNK_SIZE"))
+        self.overlap = int(os.getenv("CHUNK_OVERLAP"))
         
         if self.chunk_size <= 0:
             raise ValueError("chunk_size must be greater than 0.")

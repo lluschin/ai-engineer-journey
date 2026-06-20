@@ -1,7 +1,8 @@
 import logging
+import dotenv
 from fastapi import FastAPI
-from routes.chat_route import chat_router
 
+from routes.chat_route import chat_router
 
 logging.basicConfig(level=logging.INFO)
 
