@@ -1,6 +1,6 @@
 import requests
 
-QUESTIONS_PATH = "./misc/demo_questions.txt"
+QUESTIONS_PATH = "./data/demo_questions.txt"
 
 url = "http://127.0.0.1:8000/rag_chat"
 
