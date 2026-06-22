@@ -1,5 +1,6 @@
-.env
+# folders
 data
-misc
-ai_engineer_8_week_accelerator_plan_de.md
+
+# runtime data
+env/.*/
 **/__pycache__
