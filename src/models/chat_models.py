@@ -13,7 +13,8 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     message: str
-    model: str
+    llm_model: str
+    retrieval_model: str
     sources: list[Source] = Field(default_factory=list)
 
 

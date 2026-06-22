@@ -1,16 +1,40 @@
+import os
 import logging
 from fastapi import APIRouter, HTTPException
 
 from models.chat_models import ChatRequest, ChatResponse
-from services.openai_service import OpenAIService
-from services.retrieval_service import RetrievalService
 
 logger = logging.getLogger(__name__)
 
 chat_router = APIRouter()
 
-llm_service = OpenAIService()
-retrieval_service = RetrievalService()
+# ==== load services ====
+match os.getenv("LLM_SERVICE"):
+    case "openai":
+        logger.info("Load openai llm.")
+        from services.llm.openai_llm import OpenAILLM
+        llm_service = OpenAILLM()
+    case "ollama":
+        logger.info("Load ollama llm.")
+        from services.llm.ollama_llm import OllamaLMM
+        llm_service = OllamaLMM()
+    case _:
+        logger.error("Defined llm service not found.")
+        raise RuntimeError("Defined llm service not found.")
+
+match os.getenv("RETRIEVAL_SERVICE"):
+    case"openai":
+        logger.info("Load openai retrival.")
+        from services.retrieval.openai_retrieval import OpenAiRetrieval
+        retrieval_service = OpenAiRetrieval()
+    case "ollama":
+        logger.info("Load ollama retrival.")
+        from services.retrieval.ollama_retrieval import OllamaRetrieval
+        retrieval_service = OllamaRetrieval()
+    case _:
+        logger.error("Defined retrieval service not found.")
+        raise RuntimeError("Defined retrieval service not found.")
+
 
 @chat_router.post("/chat", response_model=ChatResponse)
 async def chat(msg: ChatRequest):
@@ -24,12 +48,11 @@ async def chat(msg: ChatRequest):
                 status_code=400,
                 detail="Message must not be empty."
             )
-
         
         logger.info(f"Creating response for user {msg.user}")
-        response = await llm_service.createResponse(cleaned_message)
+        response = await llm_service.chat(cleaned_message)
                 
-        return ChatResponse(message=f"OpenAi said: {response}", model=llm_service.model)
+        return ChatResponse(message=f"Ai said: {response}", model=llm_service.model)
     
     except HTTPException:
         raise
@@ -59,11 +82,12 @@ async def rag_chat(msg: ChatRequest):
         docs = [src.document for src in sources]
 
         logger.info(f"Creating response for user {msg.user}")
-        response = await llm_service.createRagResponse(cleaned_message, docs)
+        response = await llm_service.ragChat(cleaned_message, docs)
 
         return ChatResponse(
             message=response,
-            model=llm_service.model,
+            llm_model=llm_service.model,
+            retrieval_model=retrieval_service.model,
             sources=sources
         )
     
