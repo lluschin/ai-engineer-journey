@@ -1,0 +1,101 @@
+ [
+    {
+        "question": "Wer hat Python entwickelt?",
+        "must_contain":[
+            "Guido van Rossum"
+        ]
+    },
+    {
+        "question": "Was ist Bedrock?",
+        "must_contain":[
+            "AWS-Service",
+            "generative KI",
+            "Foundation Models",
+            "AWS-Infrastruktur"
+        ]
+    },
+    {
+        "question": "Was ist Qdrant?",
+        "must_contain":[
+            "Indexstrukturen",
+            "Embeddings",
+            "Metadaten",
+            "Similarity Searches",
+            "Vector Database"
+        ]
+    },
+    {
+        "question": "Welche Datenbank eignet sich für Embeddings?",
+        "must_contain":[
+            "Vector Databases",
+            "Similarity Searches",
+            "Qdrant",
+            "Pinecone",
+            "Weaviate",
+            "Milvus"
+        ]
+    },
+    {
+        "question": "Wie speichert man Vektoren?",
+        "must_contain":[
+            "Embeddings",
+            "Vector Databases",
+            "Hochdimensionale Vektorräume",
+            "Optimierte Speicherung"
+        ]
+    },
+    {
+        "question": "Welche Lösung kann semantische Suche durchführen?",
+        "must_contain":[
+            "Embeddings",
+            "Vektoren",
+            "Vektorraum",
+            "Bedeutung",
+            "Semantik"
+        ]
+    },
+    {
+        "question": "Welche Faktoren beeinflussen die Qualität eines RAG-Systems?",
+        "must_contain":[
+            "Sprachmodell",
+            "Chunking",
+            "Embedding-Modell",
+            "Retrieval-Strategie",
+            "Evaluation",
+            "Reranker"
+        ]
+    },
+    {
+        "question": "Wer hat Java entwickelt?",
+        "any_group":[[
+            "keine Antwort",
+            "nicht enthalten",
+            "nicht finden",
+            "weiß ich nicht",
+            "nicht im Kontext",
+            "keine Information"
+        ]]
+    },
+    {
+        "question": "Was ist Kubernetes?",
+        "any_group":[[
+            "keine Antwort",
+            "nicht enthalten",
+            "nicht finden",
+            "weiß ich nicht",
+            "nicht im Kontext",
+            "keine Information"
+        ]]
+    },
+    {
+        "question": "Wer gewann die Fußball-WM 2014?",
+        "any_group":[[
+            "keine Antwort",
+            "nicht enthalten",
+            "nicht finden",
+            "weiß ich nicht",
+            "nicht im Kontext",
+            "keine Information"
+        ]]
+    }
+ ]

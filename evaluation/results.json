@@ -1,0 +1,646 @@
+[
+    {
+        "run_id": "2026-06-25 22:04:03.153598",
+        "llm_model": "qwen3:8b",
+        "retrieval_model": "bge-m3",
+        "chunk_size": 220,
+        "top_k": 2,
+        "median_runtime": 3.43,
+        "score": 70.59,
+        "questions_details": [
+            {
+                "question": "Wer hat Python entwickelt?",
+                "answer": "Der Antwort auf die Frage \"Wer hat Python entwickelt?\" finden Sie im Kontext: **Guido van Rossum** entwickelte Python.",
+                "retrieval_sources": [
+                    {
+                        "document": "Python wurde 1991 von Guido van Rossum ver\u00f6ffentlicht. Die Sprache legt gro\u00dfen Wert auf Lesbarkeit und Produktivit\u00e4t. Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu",
+                        "score": 0.700196
+                    },
+                    {
+                        "document": "Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu den beliebtesten Frameworks geh\u00f6ren FastAPI, Django und Flask.",
+                        "score": 0.51399684
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Bedrock?",
+                "answer": "Bedrock ist ein AWS-Service f\u00fcr generative KI, der Zugriff auf verschiedene Foundation Models \u00fcber eine einheitliche API bietet. Unternehmen nutzen ihn h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb ihrer AWS-Infrastruktur zu betreiben.",
+                "retrieval_sources": [
+                    {
+                        "document": "Bedrock ist ein AWS-Service f\u00fcr generative KI. Er bietet Zugriff auf verschiedene Foundation Models \u00fcber eine einheitliche API. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb",
+                        "score": 0.6609719
+                    },
+                    {
+                        "document": "einheitliche API. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb ihrer AWS-Infrastruktur zu betreiben.",
+                        "score": 0.51271343
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Qdrant?",
+                "answer": "Qdrant ist eine Vector Database, die spezielle Indexstrukturen verwendet, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Es speichert Dokumente zusammen mit Metadaten (wie Dokumentname, Kapitelnummer, Autor) und erm\u00f6glicht \u00e4hnlichkeitsspezifische Suche (Similarity Search). Im Gegensatz zu klassischen relationalen Datenbanken ist Qdrant darauf ausgelegt, Embeddings und deren schnelle Abfrage zu verwalten.",
+                "retrieval_sources": [
+                    {
+                        "document": "Qdrant verwendet spezielle Indexstrukturen, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Dokumente werden zusammen mit Metadaten gespeichert. Typische Metadaten sind Dokumentname, Kapitelnummer, Autor,",
+                        "score": 0.5570025
+                    },
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.45060974
+                    }
+                ],
+                "score": 80.0
+            },
+            {
+                "question": "Welche Datenbank eignet sich f\u00fcr Embeddings?",
+                "answer": "Die im Kontext genannten Vector-Datenbanken eignen sich f\u00fcr Embeddings. Dazu geh\u00f6ren: **Qdrant, Pinecone, Weaviate und Milvus**. Diese speichern Embeddings und erm\u00f6glichen effiziente Similarity-Searches, wie im Kontext beschrieben.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.6215883
+                    },
+                    {
+                        "document": "Embeddings wandeln Text in numerische Vektoren um. Dabei werden semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch",
+                        "score": 0.5609928
+                    }
+                ],
+                "score": 66.67
+            },
+            {
+                "question": "Wie speichert man Vektoren?",
+                "answer": "Um Vektoren zu speichern, werden **Vector Databases** verwendet. Diese spezialisierten Datenbanken sind darauf ausgelegt, Embeddings (numerische Vektoren) effizient zu speichern und Similarity Searches (\u00e4hnlichkeitssuche) durchzuf\u00fchren. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector Databases optimiert f\u00fcr die Speicherung und Abfrage von Vektorr\u00e4umen.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.58374894
+                    },
+                    {
+                        "document": "Embeddings wandeln Text in numerische Vektoren um. Dabei werden semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch",
+                        "score": 0.50602716
+                    }
+                ],
+                "score": 50.0
+            },
+            {
+                "question": "Welche L\u00f6sung kann semantische Suche durchf\u00fchren?",
+                "answer": "Die L\u00f6sung, die semantische Suche durchf\u00fchren kann, sind **Embeddings**. Diese wandeln Text in numerische Vektoren um und projizieren semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums, sodass Suchanfragen auch \u00fcber Bedeutung und nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter erfolgen k\u00f6nnen.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch \u00fcber Bedeutung ausgef\u00fchrt werden.",
+                        "score": 0.49964175
+                    },
+                    {
+                        "document": "Embeddings wandeln Text in numerische Vektoren um. Dabei werden semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch",
+                        "score": 0.4862712
+                    }
+                ],
+                "score": 80.0
+            },
+            {
+                "question": "Welche Faktoren beeinflussen die Qualit\u00e4t eines RAG-Systems?",
+                "answer": "Die Qualit\u00e4t eines RAG-Systems wird von folgenden Faktoren beeinflusst:  \n1. **Sprachmodell**  \n2. **Chunking** (Zerlegung von Dokumenten in Abschnitte)  \n3. **Embedding-Modell**  \n4. **Retrieval-Strategie**  \n5. **Evaluation**  \n\nDiese Faktoren werden im Kontext explizit genannt.",
+                "retrieval_sources": [
+                    {
+                        "document": "Die Qualit\u00e4t eines RAG-Systems h\u00e4ngt nicht nur vom Sprachmodell ab. Ebenso wichtig sind Chunking, Embedding-Modell, Retrieval-Strategie und Evaluation. Viele Produktionssysteme verwenden zus\u00e4tzliche Reranker, um die",
+                        "score": 0.63911355
+                    },
+                    {
+                        "document": "Eine wichtige Komponente eines RAG-Systems ist das Chunking. Dabei werden gro\u00dfe Dokumente in kleinere Abschnitte zerlegt. Zu kleine Chunks verlieren Kontext, w\u00e4hrend zu gro\u00dfe Chunks die Suchqualit\u00e4t verschlechtern k\u00f6nnen",
+                        "score": 0.5450125
+                    }
+                ],
+                "score": 83.33
+            },
+            {
+                "question": "Wer hat Java entwickelt?",
+                "answer": "Die Kontextinformationen geben keine Auskunft dar\u00fcber, wer Java entwickelt hat. Die Antwort kann nicht aus dem gegebenen Text abgeleitet werden.",
+                "retrieval_sources": [
+                    {
+                        "document": "Python wurde 1991 von Guido van Rossum ver\u00f6ffentlicht. Die Sprache legt gro\u00dfen Wert auf Lesbarkeit und Produktivit\u00e4t. Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu",
+                        "score": 0.4578458
+                    },
+                    {
+                        "document": "Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu den beliebtesten Frameworks geh\u00f6ren FastAPI, Django und Flask.",
+                        "score": 0.3573402
+                    }
+                ],
+                "score": 0.0
+            },
+            {
+                "question": "Was ist Kubernetes?",
+                "answer": "Die Antwort kann nicht aus dem gegebenen Kontext abgeleitet werden.",
+                "retrieval_sources": [
+                    {
+                        "document": "Qdrant verwendet spezielle Indexstrukturen, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Dokumente werden zusammen mit Metadaten gespeichert. Typische Metadaten sind Dokumentname, Kapitelnummer, Autor,",
+                        "score": 0.44950733
+                    },
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.44332576
+                    }
+                ],
+                "score": 0.0
+            },
+            {
+                "question": "Wer gewann die Fu\u00dfball-WM 2014?",
+                "answer": "I can't find the answer. The context provided does not contain information about the winner of the 2014 FIFA World Cup.",
+                "retrieval_sources": [
+                    {
+                        "document": "generieren, zusammenfassen, klassifizieren und Fragen beantworten. Bekannte Modelle sind GPT-4.1, Claude Sonnet und Gemini. Die Modelle besitzen jedoch kein Wissen \u00fcber aktuelle Unternehmensdaten oder private Dokumente.",
+                        "score": 0.28101987
+                    },
+                    {
+                        "document": "Gemini. Die Modelle besitzen jedoch kein Wissen \u00fcber aktuelle Unternehmensdaten oder private Dokumente.",
+                        "score": 0.273515
+                    }
+                ],
+                "score": 0.0
+            }
+        ]
+    },
+    {
+        "run_id": "2026-06-25 22:05:35.683599",
+        "llm_model": "qwen3:8b",
+        "retrieval_model": "bge-m3",
+        "chunk_size": 220,
+        "top_k": 2,
+        "median_runtime": 4.77,
+        "score": 82.35,
+        "questions_details": [
+            {
+                "question": "Wer hat Python entwickelt?",
+                "answer": "Python wurde von **Guido van Rossum** entwickelt. Diese Information ist direkt im Kontext enthalten.",
+                "retrieval_sources": [
+                    {
+                        "document": "Python wurde 1991 von Guido van Rossum ver\u00f6ffentlicht. Die Sprache legt gro\u00dfen Wert auf Lesbarkeit und Produktivit\u00e4t. Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu",
+                        "score": 0.700196
+                    },
+                    {
+                        "document": "Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu den beliebtesten Frameworks geh\u00f6ren FastAPI, Django und Flask.",
+                        "score": 0.51399684
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Bedrock?",
+                "answer": "Bedrock ist ein AWS-Service f\u00fcr generative KI. Er bietet Zugriff auf verschiedene Foundation Models \u00fcber eine einheitliche API und wird von Unternehmen h\u00e4ufig genutzt, um Claude-Modelle oder andere Foundation Models innerhalb ihrer AWS-Infrastruktur zu betreiben.",
+                "retrieval_sources": [
+                    {
+                        "document": "Bedrock ist ein AWS-Service f\u00fcr generative KI. Er bietet Zugriff auf verschiedene Foundation Models \u00fcber eine einheitliche API. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb",
+                        "score": 0.6609719
+                    },
+                    {
+                        "document": "einheitliche API. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb ihrer AWS-Infrastruktur zu betreiben.",
+                        "score": 0.51271343
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Qdrant?",
+                "answer": "Qdrant ist eine **Vector Database**, die spezielle Indexstrukturen verwendet, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Es erm\u00f6glicht Similarity Searches (\u00c4hnlichkeits-Suchvorg\u00e4nge) und speichert Dokumente zusammen mit Metadaten wie Dokumentname, Kapitelnummer und Autor. Qdrant geh\u00f6rt zu den bekannten L\u00f6sungen f\u00fcr Vector Databases neben Pinecone, Weaviate und Milvus.",
+                "retrieval_sources": [
+                    {
+                        "document": "Qdrant verwendet spezielle Indexstrukturen, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Dokumente werden zusammen mit Metadaten gespeichert. Typische Metadaten sind Dokumentname, Kapitelnummer, Autor,",
+                        "score": 0.5570025
+                    },
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.45060974
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Welche Datenbank eignet sich f\u00fcr Embeddings?",
+                "answer": "Die folgenden Datenbanken eignen sich f\u00fcr Embeddings, da sie speziell zur Speicherung und effizienten Similarity-Searches von Vektoren entwickelt wurden:  \n- **Qdrant**  \n- **Pinecone**  \n- **Weaviate**  \n- **Milvus**  \n\nDiese sind im Gegensatz zu klassischen relationalen Datenbanken f\u00fcr die Bearbeitung von Embeddings optimiert.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.6215883
+                    },
+                    {
+                        "document": "Embeddings wandeln Text in numerische Vektoren um. Dabei werden semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch",
+                        "score": 0.5609928
+                    }
+                ],
+                "score": 66.67
+            },
+            {
+                "question": "Wie speichert man Vektoren?",
+                "answer": "Um Vektoren zu speichern, werden **Vector Databases** verwendet. Diese speichern Embeddings (numerische Vektoren, die Texte darstellen) und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.58374894
+                    },
+                    {
+                        "document": "Embeddings wandeln Text in numerische Vektoren um. Dabei werden semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch",
+                        "score": 0.50602716
+                    }
+                ],
+                "score": 50.0
+            },
+            {
+                "question": "Welche L\u00f6sung kann semantische Suche durchf\u00fchren?",
+                "answer": "Die L\u00f6sung, die semantische Suche durchf\u00fchren kann, ist **Embeddings**.  \nDer Kontext erkl\u00e4rt, dass Embeddings Texte in numerische Vektoren umwandeln und semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projizieren. Dadurch k\u00f6nnen Suchanfragen \u00fcber Bedeutung und nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter durchgef\u00fchrt werden.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch \u00fcber Bedeutung ausgef\u00fchrt werden.",
+                        "score": 0.49964175
+                    },
+                    {
+                        "document": "Embeddings wandeln Text in numerische Vektoren um. Dabei werden semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch",
+                        "score": 0.4862712
+                    }
+                ],
+                "score": 80.0
+            },
+            {
+                "question": "Welche Faktoren beeinflussen die Qualit\u00e4t eines RAG-Systems?",
+                "answer": "Die Qualit\u00e4t eines RAG-Systems wird durch folgende Faktoren beeinflusst:  \n- **Sprachmodell**  \n- **Chunking** (Zerlegung von Dokumenten in Abschnitte)  \n- **Embedding-Modell**  \n- **Retrieval-Strategie**  \n- **Evaluation**  \n- **Reranker** (zus\u00e4tzliche Komponente in vielen Produktionssystemen)  \n\nDiese Faktoren werden im Kontext explizit genannt.",
+                "retrieval_sources": [
+                    {
+                        "document": "Die Qualit\u00e4t eines RAG-Systems h\u00e4ngt nicht nur vom Sprachmodell ab. Ebenso wichtig sind Chunking, Embedding-Modell, Retrieval-Strategie und Evaluation. Viele Produktionssysteme verwenden zus\u00e4tzliche Reranker, um die",
+                        "score": 0.63911355
+                    },
+                    {
+                        "document": "Eine wichtige Komponente eines RAG-Systems ist das Chunking. Dabei werden gro\u00dfe Dokumente in kleinere Abschnitte zerlegt. Zu kleine Chunks verlieren Kontext, w\u00e4hrend zu gro\u00dfe Chunks die Suchqualit\u00e4t verschlechtern k\u00f6nnen",
+                        "score": 0.5450125
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Wer hat Java entwickelt?",
+                "answer": "Die Context enth\u00e4lt keine Informationen \u00fcber die Entwicklung von Java. Die Frage kann daher nicht aus dem gegebenen Text beantwortet werden.",
+                "retrieval_sources": [
+                    {
+                        "document": "Python wurde 1991 von Guido van Rossum ver\u00f6ffentlicht. Die Sprache legt gro\u00dfen Wert auf Lesbarkeit und Produktivit\u00e4t. Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu",
+                        "score": 0.4578458
+                    },
+                    {
+                        "document": "Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu den beliebtesten Frameworks geh\u00f6ren FastAPI, Django und Flask.",
+                        "score": 0.3573402
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Kubernetes?",
+                "answer": "Die Antwort ist nicht im gegebenen Kontext enthalten.",
+                "retrieval_sources": [
+                    {
+                        "document": "Qdrant verwendet spezielle Indexstrukturen, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Dokumente werden zusammen mit Metadaten gespeichert. Typische Metadaten sind Dokumentname, Kapitelnummer, Autor,",
+                        "score": 0.44950733
+                    },
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.44332576
+                    }
+                ],
+                "score": 0.0
+            },
+            {
+                "question": "Wer gewann die Fu\u00dfball-WM 2014?",
+                "answer": "Die Informationen im gegebenen Kontext beziehen sich auf KI-Modelle wie GPT-4.1, Claude Sonnet und Gemini sowie deren F\u00e4higkeiten und Einschr\u00e4nkungen (z. B. kein Wissen \u00fcber aktuelle Unternehmensdaten). Es wird jedoch **keine Auskunft \u00fcber den Fu\u00dfball-WM-Gewinner 2014** gegeben. \n\n**Antwort:**  \nIch kann keine Informationen zur Fu\u00dfball-WM 2014 aus dem gegebenen Kontext ablesen.",
+                "retrieval_sources": [
+                    {
+                        "document": "generieren, zusammenfassen, klassifizieren und Fragen beantworten. Bekannte Modelle sind GPT-4.1, Claude Sonnet und Gemini. Die Modelle besitzen jedoch kein Wissen \u00fcber aktuelle Unternehmensdaten oder private Dokumente.",
+                        "score": 0.28101987
+                    },
+                    {
+                        "document": "Gemini. Die Modelle besitzen jedoch kein Wissen \u00fcber aktuelle Unternehmensdaten oder private Dokumente.",
+                        "score": 0.273515
+                    }
+                ],
+                "score": 100.0
+            }
+        ]
+    },
+    {
+        "run_id": "2026-06-25 22:06:27.349237",
+        "llm_model": "gpt-4.1-mini",
+        "retrieval_model": "text-embedding-3-small",
+        "chunk_size": 220,
+        "top_k": 2,
+        "median_runtime": 4.62,
+        "score": 79.41,
+        "questions_details": [
+            {
+                "question": "Wer hat Python entwickelt?",
+                "answer": "Python wurde von Guido van Rossum entwickelt.",
+                "retrieval_sources": [
+                    {
+                        "document": "Python wurde 1991 von Guido van Rossum ver\u00f6ffentlicht. Die Sprache legt gro\u00dfen Wert auf Lesbarkeit und Produktivit\u00e4t. Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu",
+                        "score": 0.60059977
+                    },
+                    {
+                        "document": "Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu den beliebtesten Frameworks geh\u00f6ren FastAPI, Django und Flask.",
+                        "score": 0.46683627
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Bedrock?",
+                "answer": "Bedrock ist ein AWS-Service f\u00fcr generative KI, der Zugriff auf verschiedene Foundation Models \u00fcber eine einheitliche API bietet.",
+                "retrieval_sources": [
+                    {
+                        "document": "Bedrock ist ein AWS-Service f\u00fcr generative KI. Er bietet Zugriff auf verschiedene Foundation Models \u00fcber eine einheitliche API. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb",
+                        "score": 0.5912527
+                    },
+                    {
+                        "document": "einheitliche API. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb ihrer AWS-Infrastruktur zu betreiben.",
+                        "score": 0.5001137
+                    }
+                ],
+                "score": 75.0
+            },
+            {
+                "question": "Was ist Qdrant?",
+                "answer": "Qdrant ist eine Vector Database, die spezielle Indexstrukturen verwendet, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Dabei werden Dokumente zusammen mit Metadaten wie Dokumentname, Kapitelnummer und Autor gespeichert.",
+                "retrieval_sources": [
+                    {
+                        "document": "Qdrant verwendet spezielle Indexstrukturen, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Dokumente werden zusammen mit Metadaten gespeichert. Typische Metadaten sind Dokumentname, Kapitelnummer, Autor,",
+                        "score": 0.48570555
+                    },
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.37400156
+                    }
+                ],
+                "score": 80.0
+            },
+            {
+                "question": "Welche Datenbank eignet sich f\u00fcr Embeddings?",
+                "answer": "Geeignete Datenbanken f\u00fcr Embeddings sind Vector Databases wie Qdrant, Pinecone, Weaviate und Milvus.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.61661446
+                    },
+                    {
+                        "document": "Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector Databases speziell f\u00fcr die Suche in hochdimensionalen Vektorr\u00e4umen optimiert.",
+                        "score": 0.53084606
+                    }
+                ],
+                "score": 83.33
+            },
+            {
+                "question": "Wie speichert man Vektoren?",
+                "answer": "Im gegebenen Kontext steht, dass Vector Databases Embeddings speichern, also Vektoren in Form von Vektordarstellungen (Embeddings) abspeichern. Die Speicherung erfolgt in spezialisierten Vector Databases wie Qdrant, Pinecone, Weaviate oder Milvus, die daf\u00fcr optimiert sind, Vektoren effizient zu speichern und \u00c4hnlichkeitssuchen durchzuf\u00fchren. \n\nZusammengefasst:  \nVektoren werden als Embeddings in speziellen Vector Databases gespeichert, die daf\u00fcr optimiert sind, hochdimensionale Vektoren effizient zu verwalten und zu durchsuchen.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.55716157
+                    },
+                    {
+                        "document": "Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector Databases speziell f\u00fcr die Suche in hochdimensionalen Vektorr\u00e4umen optimiert.",
+                        "score": 0.52505577
+                    }
+                ],
+                "score": 50.0
+            },
+            {
+                "question": "Welche L\u00f6sung kann semantische Suche durchf\u00fchren?",
+                "answer": "Die L\u00f6sung, die semantische Suche durchf\u00fchren kann, sind Embeddings. Embeddings wandeln Text in numerische Vektoren um, wobei semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert werden, was Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch \u00fcber Bedeutung erm\u00f6glicht.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch \u00fcber Bedeutung ausgef\u00fchrt werden.",
+                        "score": 0.571445
+                    },
+                    {
+                        "document": "Embeddings wandeln Text in numerische Vektoren um. Dabei werden semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch",
+                        "score": 0.55542517
+                    }
+                ],
+                "score": 80.0
+            },
+            {
+                "question": "Welche Faktoren beeinflussen die Qualit\u00e4t eines RAG-Systems?",
+                "answer": "Die Qualit\u00e4t eines RAG-Systems wird beeinflusst durch das Sprachmodell, das Chunking, das Embedding-Modell, die Retrieval-Strategie und die Evaluation. Zudem verwenden viele Produktionssysteme zus\u00e4tzliche Reranker, um die Qualit\u00e4t zu verbessern. Beim Chunking ist dabei wichtig, dass die Gr\u00f6\u00dfe der Chunks ausgewogen ist, da zu kleine Chunks Kontext verlieren und zu gro\u00dfe Chunks die Suchqualit\u00e4t verschlechtern k\u00f6nnen.",
+                "retrieval_sources": [
+                    {
+                        "document": "Die Qualit\u00e4t eines RAG-Systems h\u00e4ngt nicht nur vom Sprachmodell ab. Ebenso wichtig sind Chunking, Embedding-Modell, Retrieval-Strategie und Evaluation. Viele Produktionssysteme verwenden zus\u00e4tzliche Reranker, um die",
+                        "score": 0.70573306
+                    },
+                    {
+                        "document": "Eine wichtige Komponente eines RAG-Systems ist das Chunking. Dabei werden gro\u00dfe Dokumente in kleinere Abschnitte zerlegt. Zu kleine Chunks verlieren Kontext, w\u00e4hrend zu gro\u00dfe Chunks die Suchqualit\u00e4t verschlechtern k\u00f6nnen",
+                        "score": 0.5929667
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Wer hat Java entwickelt?",
+                "answer": "Ich kann die Antwort auf diese Frage im gegebenen Kontext nicht finden.",
+                "retrieval_sources": [
+                    {
+                        "document": "Python wurde 1991 von Guido van Rossum ver\u00f6ffentlicht. Die Sprache legt gro\u00dfen Wert auf Lesbarkeit und Produktivit\u00e4t. Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu",
+                        "score": 0.3656116
+                    },
+                    {
+                        "document": "planen und Werkzeuge aufrufen. Beispiele sind Datenbanksuchen, Web-Recherchen, Kalenderabfragen oder das Ausf\u00fchren von Code. Frameworks wie LangGraph unterst\u00fctzen die Orchestrierung solcher Workflows.",
+                        "score": 0.31203258
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Kubernetes?",
+                "answer": "Ich kann die Antwort auf die Frage \"Was ist Kubernetes?\" nicht in dem gegebenen Kontext finden.",
+                "retrieval_sources": [
+                    {
+                        "document": "planen und Werkzeuge aufrufen. Beispiele sind Datenbanksuchen, Web-Recherchen, Kalenderabfragen oder das Ausf\u00fchren von Code. Frameworks wie LangGraph unterst\u00fctzen die Orchestrierung solcher Workflows.",
+                        "score": 0.34570307
+                    },
+                    {
+                        "document": "Eine wichtige Komponente eines RAG-Systems ist das Chunking. Dabei werden gro\u00dfe Dokumente in kleinere Abschnitte zerlegt. Zu kleine Chunks verlieren Kontext, w\u00e4hrend zu gro\u00dfe Chunks die Suchqualit\u00e4t verschlechtern k\u00f6nnen",
+                        "score": 0.30477923
+                    }
+                ],
+                "score": 0.0
+            },
+            {
+                "question": "Wer gewann die Fu\u00dfball-WM 2014?",
+                "answer": "Ich kann die Antwort auf die Frage, wer die Fu\u00dfball-WM 2014 gewann, im gegebenen Kontext nicht finden.",
+                "retrieval_sources": [
+                    {
+                        "document": "sind. H\u00e4ufig werden Golden Datasets, LLM-as-a-Judge und automatisierte Regressionstests eingesetzt. Ohne Evaluation ist es schwierig, Verbesserungen objektiv nachzuweisen.",
+                        "score": 0.15873505
+                    },
+                    {
+                        "document": "Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu den beliebtesten Frameworks geh\u00f6ren FastAPI, Django und Flask.",
+                        "score": 0.13521014
+                    }
+                ],
+                "score": 100.0
+            }
+        ]
+    },
+    {
+        "run_id": "2026-06-25 22:08:21.627950",
+        "llm_model": "gpt-4.1-mini",
+        "retrieval_model": "text-embedding-3-small",
+        "chunk_size": 220,
+        "top_k": 2,
+        "median_runtime": 2.38,
+        "score": 82.35,
+        "questions_details": [
+            {
+                "question": "Wer hat Python entwickelt?",
+                "answer": "Python wurde von Guido van Rossum entwickelt.",
+                "retrieval_sources": [
+                    {
+                        "document": "Python wurde 1991 von Guido van Rossum ver\u00f6ffentlicht. Die Sprache legt gro\u00dfen Wert auf Lesbarkeit und Produktivit\u00e4t. Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu",
+                        "score": 0.60059977
+                    },
+                    {
+                        "document": "Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu den beliebtesten Frameworks geh\u00f6ren FastAPI, Django und Flask.",
+                        "score": 0.46683627
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Bedrock?",
+                "answer": "Bedrock ist ein AWS-Service f\u00fcr generative KI, der Zugriff auf verschiedene Foundation Models \u00fcber eine einheitliche API bietet. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb ihrer AWS-Infrastruktur zu betreiben.",
+                "retrieval_sources": [
+                    {
+                        "document": "Bedrock ist ein AWS-Service f\u00fcr generative KI. Er bietet Zugriff auf verschiedene Foundation Models \u00fcber eine einheitliche API. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb",
+                        "score": 0.5912527
+                    },
+                    {
+                        "document": "einheitliche API. Unternehmen nutzen Bedrock h\u00e4ufig, um Claude-Modelle oder andere Foundation Models innerhalb ihrer AWS-Infrastruktur zu betreiben.",
+                        "score": 0.5001137
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Was ist Qdrant?",
+                "answer": "Qdrant ist eine Vector Database, die spezielle Indexstrukturen verwendet, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Dabei werden Dokumente zusammen mit Metadaten wie Dokumentname, Kapitelnummer und Autor gespeichert.",
+                "retrieval_sources": [
+                    {
+                        "document": "Qdrant verwendet spezielle Indexstrukturen, um Millionen von Embeddings effizient durchsuchen zu k\u00f6nnen. Dokumente werden zusammen mit Metadaten gespeichert. Typische Metadaten sind Dokumentname, Kapitelnummer, Autor,",
+                        "score": 0.48570555
+                    },
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.37400156
+                    }
+                ],
+                "score": 80.0
+            },
+            {
+                "question": "Welche Datenbank eignet sich f\u00fcr Embeddings?",
+                "answer": "Die im Kontext genannten Datenbanken, die sich f\u00fcr Embeddings eignen, sind Qdrant, Pinecone, Weaviate und Milvus. Diese Vector Databases sind speziell f\u00fcr die effiziente Similarity Search in hochdimensionalen Vektorr\u00e4umen optimiert.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.61661446
+                    },
+                    {
+                        "document": "Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector Databases speziell f\u00fcr die Suche in hochdimensionalen Vektorr\u00e4umen optimiert.",
+                        "score": 0.53084606
+                    }
+                ],
+                "score": 83.33
+            },
+            {
+                "question": "Wie speichert man Vektoren?",
+                "answer": "Vektoren werden in sogenannten Vector Databases gespeichert, die speziell f\u00fcr die Speicherung von Embeddings ausgelegt sind. Diese Datenbanken erm\u00f6glichen eine effiziente Suche nach \u00c4hnlichkeiten in hochdimensionalen Vektorr\u00e4umen. Beispiele f\u00fcr solche Vector Databases sind Qdrant, Pinecone, Weaviate und Milvus.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vector Databases speichern Embeddings und erm\u00f6glichen effiziente Similarity Searches. Bekannte L\u00f6sungen sind Qdrant, Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector",
+                        "score": 0.55716157
+                    },
+                    {
+                        "document": "Pinecone, Weaviate und Milvus. Im Gegensatz zu klassischen relationalen Datenbanken sind Vector Databases speziell f\u00fcr die Suche in hochdimensionalen Vektorr\u00e4umen optimiert.",
+                        "score": 0.52505577
+                    }
+                ],
+                "score": 50.0
+            },
+            {
+                "question": "Welche L\u00f6sung kann semantische Suche durchf\u00fchren?",
+                "answer": "Die L\u00f6sung, die semantische Suche durchf\u00fchren kann, sind Embeddings. Sie wandeln Text in numerische Vektoren um, wobei semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert werden, wodurch Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch \u00fcber Bedeutung ausgef\u00fchrt werden k\u00f6nnen.",
+                "retrieval_sources": [
+                    {
+                        "document": "Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch \u00fcber Bedeutung ausgef\u00fchrt werden.",
+                        "score": 0.571445
+                    },
+                    {
+                        "document": "Embeddings wandeln Text in numerische Vektoren um. Dabei werden semantisch \u00e4hnliche Texte in \u00e4hnliche Bereiche des Vektorraums projiziert. Dadurch k\u00f6nnen Suchanfragen nicht nur \u00fcber exakte Schl\u00fcsselw\u00f6rter, sondern auch",
+                        "score": 0.55542517
+                    }
+                ],
+                "score": 80.0
+            },
+            {
+                "question": "Welche Faktoren beeinflussen die Qualit\u00e4t eines RAG-Systems?",
+                "answer": "Die Qualit\u00e4t eines RAG-Systems wird von mehreren Faktoren beeinflusst: dem Sprachmodell, dem Chunking, dem Embedding-Modell, der Retrieval-Strategie und der Evaluation. Zudem verwenden viele Produktionssysteme zus\u00e4tzliche Reranker, um die Qualit\u00e4t weiter zu verbessern.",
+                "retrieval_sources": [
+                    {
+                        "document": "Die Qualit\u00e4t eines RAG-Systems h\u00e4ngt nicht nur vom Sprachmodell ab. Ebenso wichtig sind Chunking, Embedding-Modell, Retrieval-Strategie und Evaluation. Viele Produktionssysteme verwenden zus\u00e4tzliche Reranker, um die",
+                        "score": 0.7056376
+                    },
+                    {
+                        "document": "Eine wichtige Komponente eines RAG-Systems ist das Chunking. Dabei werden gro\u00dfe Dokumente in kleinere Abschnitte zerlegt. Zu kleine Chunks verlieren Kontext, w\u00e4hrend zu gro\u00dfe Chunks die Suchqualit\u00e4t verschlechtern k\u00f6nnen",
+                        "score": 0.59280723
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Wer hat Java entwickelt?",
+                "answer": "Ich kann die Antwort auf die Frage nicht im gegebenen Kontext finden.",
+                "retrieval_sources": [
+                    {
+                        "document": "Python wurde 1991 von Guido van Rossum ver\u00f6ffentlicht. Die Sprache legt gro\u00dfen Wert auf Lesbarkeit und Produktivit\u00e4t. Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu",
+                        "score": 0.3656116
+                    },
+                    {
+                        "document": "planen und Werkzeuge aufrufen. Beispiele sind Datenbanksuchen, Web-Recherchen, Kalenderabfragen oder das Ausf\u00fchren von Code. Frameworks wie LangGraph unterst\u00fctzen die Orchestrierung solcher Workflows.",
+                        "score": 0.31203258
+                    }
+                ],
+                "score": 0.0
+            },
+            {
+                "question": "Was ist Kubernetes?",
+                "answer": "Ich kann die Antwort auf die Frage \"Was ist Kubernetes?\" im gegebenen Kontext nicht finden.",
+                "retrieval_sources": [
+                    {
+                        "document": "planen und Werkzeuge aufrufen. Beispiele sind Datenbanksuchen, Web-Recherchen, Kalenderabfragen oder das Ausf\u00fchren von Code. Frameworks wie LangGraph unterst\u00fctzen die Orchestrierung solcher Workflows.",
+                        "score": 0.34570307
+                    },
+                    {
+                        "document": "Eine wichtige Komponente eines RAG-Systems ist das Chunking. Dabei werden gro\u00dfe Dokumente in kleinere Abschnitte zerlegt. Zu kleine Chunks verlieren Kontext, w\u00e4hrend zu gro\u00dfe Chunks die Suchqualit\u00e4t verschlechtern k\u00f6nnen",
+                        "score": 0.30477923
+                    }
+                ],
+                "score": 100.0
+            },
+            {
+                "question": "Wer gewann die Fu\u00dfball-WM 2014?",
+                "answer": "Ich kann die Antwort auf die Frage, wer die Fu\u00dfball-WM 2014 gewann, im gegebenen Kontext nicht finden.",
+                "retrieval_sources": [
+                    {
+                        "document": "sind. H\u00e4ufig werden Golden Datasets, LLM-as-a-Judge und automatisierte Regressionstests eingesetzt. Ohne Evaluation ist es schwierig, Verbesserungen objektiv nachzuweisen.",
+                        "score": 0.15874268
+                    },
+                    {
+                        "document": "Python wird heute in Webentwicklung, Data Science, Machine Learning und AI Engineering eingesetzt. Zu den beliebtesten Frameworks geh\u00f6ren FastAPI, Django und Flask.",
+                        "score": 0.1352247
+                    }
+                ],
+                "score": 100.0
+            }
+        ]
+    }
+]
