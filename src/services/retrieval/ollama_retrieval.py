@@ -1,5 +1,5 @@
 import os
-import ollama
+from ollama import AsyncClient
 
 from services.retrieval.retrieval_service import RetrievalService
 
@@ -13,14 +13,15 @@ class OllamaRetrieval(RetrievalService):
     
 
     def __init__(self):
-        self.model = os.getenv("RETRIEVAL_MODEL")
-        qdrant_collection_name = "_".join([OllamaRetrieval.QDRANT_COLLECTION, self.model])
+        client = AsyncClient()
+        model = os.getenv("RETRIEVAL_MODEL")
+        qdrant_collection_name = "_".join([OllamaRetrieval.QDRANT_COLLECTION, model])
+        super().__init__(model, client, qdrant_collection_name)
 
-        super().__init__(qdrant_collection_name)
 
-
-    def _create_embedding(self, query: str):
-        embedding = ollama.embed(
+    async def _create_embedding(self, query: str):
+        
+        embedding = await self.client.embed(
             model=self.model,
             input=query
             )

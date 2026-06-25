@@ -6,11 +6,12 @@ from services.llm.llm_service import LLMService
 class OpenAILLM(LLMService):
 
     def __init__(self):
-        self.client = AsyncOpenAI()
-        self.model = os.getenv("LLM_MODEL")
+        model = os.getenv("LLM_MODEL")
+        client = AsyncOpenAI()
+        super().__init__(model, client)
 
 
-    async def _createResponse(self, prompt: str) -> str:
+    async def _create_response(self, prompt: str) -> str:
         response = await self.client.responses.create(
             model=self.model,
             input=prompt

@@ -24,7 +24,7 @@ class QdrantService:
         )
 
 
-    def search(self, vec, top_k) -> list[Source]:
+    async def search(self, vec, top_k) -> list[Source]:
         hits = self.client.query_points(
             collection_name=self.collection_name,
             query=vec,

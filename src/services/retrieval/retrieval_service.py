@@ -11,9 +11,14 @@ from abc import ABC, abstractmethod
 
 class RetrievalService(ABC):
 
-    def __init__(self, qdrant_collection_name:str):
+    def __init__(self, model, client, qdrant_collection_name:str):
+        self.model = model
+        self.client = client
         self.qdrant = QdrantService(qdrant_collection_name)
         self.chunking = ChunkService()
+        self.k = int(os.getenv("RETRIEVAL_TOPK"))
+
+        logger.info(f"use model {self.model}")
 
 
     def ingest_text(self, text: str):
@@ -21,22 +26,21 @@ class RetrievalService(ABC):
         self.add_documents(chunks)
 
 
-    def add_documents(self, docs: list[str]):
+    async def add_documents(self, docs: list[str]):
         logger.info(f"Documents added: {docs}")
         for doc in docs:
-            embedding = self._create_embedding(doc)
+            embedding = await self._create_embedding(doc)
             self.qdrant.upload_embedding(embedding, doc)
 
 
-    def search(self, query: str) -> list[Source]:
+    async def search(self, query: str) -> list[Source]:
         logger.info(f"Searching for embeddings.")
-        embedding = self._create_embedding(query)
+        embedding = await self._create_embedding(query)
 
-        k = int(os.getenv("RETRIEVAL_TOPK"))
-        top_k_results = self.qdrant.search(embedding, k)
+        top_k_results = await self.qdrant.search(embedding, self.k)
         return top_k_results
 
 
     @abstractmethod
-    def _create_embedding(self, query: str):
+    async def _create_embedding(self, query: str):
         pass

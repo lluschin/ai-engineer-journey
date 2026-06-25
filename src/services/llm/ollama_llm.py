@@ -2,14 +2,15 @@ import os
 from ollama import AsyncClient
 from services.llm.llm_service import LLMService
 
-class OllamaLMM(LLMService):
+class OllamaLLM(LLMService):
 
     def __init__(self):
-        self.client = AsyncClient()
-        self.model = os.getenv("LLM_MODEL")
+        model = os.getenv("LLM_MODEL")
+        client = AsyncClient()
+        super().__init__(model, client)
     
 
-    async def _createResponse(self, prompt: str) -> str:
+    async def _create_response(self, prompt: str) -> str:
         response = await self.client.chat(
             model=self.model,
             messages=[{'role': 'user', 'content': prompt}]

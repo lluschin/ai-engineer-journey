@@ -16,8 +16,8 @@ match os.getenv("LLM_SERVICE"):
         llm_service = OpenAILLM()
     case "ollama":
         logger.info("Load ollama llm.")
-        from services.llm.ollama_llm import OllamaLMM
-        llm_service = OllamaLMM()
+        from services.llm.ollama_llm import OllamaLLM
+        llm_service = OllamaLLM()
     case _:
         logger.error("Defined llm service not found.")
         raise RuntimeError("Defined llm service not found.")
@@ -78,16 +78,18 @@ async def rag_chat(msg: ChatRequest):
             )
         
         logger.info("Searching for embeddings.")
-        sources = retrieval_service.search(cleaned_message)
+        sources = await retrieval_service.search(cleaned_message)
         docs = [src.document for src in sources]
 
         logger.info(f"Creating response for user {msg.user}")
-        response = await llm_service.ragChat(cleaned_message, docs)
+        response = await llm_service.rag_chat(cleaned_message, docs)
 
         return ChatResponse(
             message=response,
             llm_model=llm_service.model,
             retrieval_model=retrieval_service.model,
+            chunk_size=retrieval_service.chunking.chunk_size,
+            top_k=retrieval_service.k,
             sources=sources
         )
     

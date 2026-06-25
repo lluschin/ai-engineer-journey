@@ -26,12 +26,12 @@ for question in questions:
     if "must_contain" in question.keys():
         entries += len(question["must_contain"])
         for musts in question["must_contain"]:
-            satisfied += 1 if musts in response.json()["message"] else 0
+            satisfied += 1 if musts.lower() in response.json()["message"].lower() else 0
         
     if "any_of" in question.keys():
         entries += len(question["any_of"])
         for anys in question["any_of"]:
-            satisfied += 1 if any(a in response.json()["message"] for a in anys) else 0
+            satisfied += 1 if any(a.lower() in response.json()["message"].lower() for a in anys) else 0
     
     total_entries += entries
     total_satisfied += satisfied

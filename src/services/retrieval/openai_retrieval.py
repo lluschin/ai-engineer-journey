@@ -1,6 +1,6 @@
 import os
 
-from openai import OpenAI
+from openai import AsyncOpenAI
 from services.retrieval.retrieval_service import RetrievalService
 
 
@@ -9,13 +9,14 @@ class OpenAiRetrieval(RetrievalService):
     QDRANT_COLLECTION = "AiJourney_text-embedding-3-small"
 
     def __init__(self):
-        self.client = OpenAI()
-        self.model = os.getenv("RETRIEVAL_MODEL")
-        super().__init__(OpenAiRetrieval.QDRANT_COLLECTION)
+        client = AsyncOpenAI()
+        model = os.getenv("RETRIEVAL_MODEL")
+        qdrant_collection_name = OpenAiRetrieval.QDRANT_COLLECTION
+        super().__init__(model, client, qdrant_collection_name)
 
 
-    def _create_embedding(self, query: str):
-        embedding = self.client.embeddings.create(
+    async def _create_embedding(self, query: str):
+        embedding = await self.client.embeddings.create(
             model=self.model,
             input=query
         )
