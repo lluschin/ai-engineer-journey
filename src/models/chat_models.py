@@ -17,6 +17,8 @@ class ChatResponse(BaseModel):
     retrieval_model: str
     chunk_size: int
     top_k: int
+    context_builder: float
+    ranking: str
     sources: list[Source] = Field(default_factory=list)
 
 

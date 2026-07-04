@@ -16,16 +16,14 @@ class LLMService(ABC):
         return await self._create_response(query)
 
 
-    async def rag_chat(self, query: str, context: list[str]) -> str:
-        context_text = "\n\n".join(context)
-
+    async def rag_chat(self, query: str, context: str) -> str:
         prompt= f"""
         Use the following context to answer the question.
         If the context contains information to answer the question, use it.
         If the answer is not contained in the context, say you cant find the answer.
 
         Context:
-        {context_text}
+        {context}
 
         Question:
         {query}

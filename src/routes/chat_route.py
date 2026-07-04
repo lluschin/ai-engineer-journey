@@ -2,13 +2,15 @@ import os
 import logging
 from fastapi import APIRouter, HTTPException
 
+import services.context_builder.context_builder as ContextBuilder
+import services.ranking.identity_ranker as Ranking
 from models.chat_models import ChatRequest, ChatResponse
 
 logger = logging.getLogger(__name__)
 
 chat_router = APIRouter()
 
-# ==== load services ====
+# ==== load services by environment ====
 match os.getenv("LLM_SERVICE"):
     case "openai":
         logger.info("Load openai llm.")
@@ -78,11 +80,20 @@ async def rag_chat(msg: ChatRequest):
             )
         
         logger.info("Searching for embeddings.")
-        sources = await retrieval_service.search(cleaned_message)
-        docs = [src.document for src in sources]
 
+        # search database for embeddings
+        sources = await retrieval_service.search(cleaned_message)
+
+        # rerank the given sources
+        sources = Ranking.rank(sources)
+
+        # buildup context for llm
+        docs = [src.document for src in sources]
+        context = ContextBuilder.create_context(docs)
+
+        # send promt to llm and create response
         logger.info(f"Creating response for user {msg.user}")
-        response = await llm_service.rag_chat(cleaned_message, docs)
+        response = await llm_service.rag_chat(cleaned_message, context)
 
         return ChatResponse(
             message=response,
@@ -90,6 +101,8 @@ async def rag_chat(msg: ChatRequest):
             retrieval_model=retrieval_service.model,
             chunk_size=retrieval_service.chunking.chunk_size,
             top_k=retrieval_service.k,
+            context_builder=ContextBuilder.CONTEXT_BUILDER_VERSION,
+            ranking='IdentityRanker',
             sources=sources
         )
     
