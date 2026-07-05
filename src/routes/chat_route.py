@@ -3,7 +3,7 @@ import logging
 from fastapi import APIRouter, HTTPException
 
 import services.context_builder.context_builder as ContextBuilder
-import services.ranking.identity_ranker as Ranking
+from services.ranking.heuristic_ranker import HeuristicRanker
 from models.chat_models import ChatRequest, ChatResponse
 
 logger = logging.getLogger(__name__)
@@ -79,22 +79,24 @@ async def rag_chat(msg: ChatRequest):
                 detail="Message must not be empty."
             )
         
-        logger.info("Searching for embeddings.")
-
         # search database for embeddings
+        logger.info("Searching for embeddings.")
         sources = await retrieval_service.search(cleaned_message)
 
         # rerank the given sources
-        sources = Ranking.rank(sources)
+        logger.info("rerank sources.")
+        ranker = HeuristicRanker(cleaned_message, sources)
+        ranked_sources = ranker.rank()
 
         # buildup context for llm
-        docs = [src.document for src in sources]
-        context = ContextBuilder.create_context(docs)
+        logger.info("buildup context.")
+        context = ContextBuilder.create_context(ranked_sources)
 
         # send promt to llm and create response
-        logger.info(f"Creating response for user {msg.user}")
+        logger.info("talk to llm.")
         response = await llm_service.rag_chat(cleaned_message, context)
 
+        logger.info(f"Creating response for user {msg.user}")
         return ChatResponse(
             message=response,
             llm_model=llm_service.model,
