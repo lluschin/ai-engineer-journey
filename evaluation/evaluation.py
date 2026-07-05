@@ -69,6 +69,8 @@ result = {
     "retrieval_model": response.json()["retrieval_model"],
     "chunk_size": response.json()["chunk_size"],
     "top_k": response.json()["top_k"],
+    "context_builder": response.json()["context_builder"],
+    "ranking": response.json()["ranking"],
     "median_runtime": round(total_time[int(len(total_time) / 2)], 2),
     "score": round((total_satisfied / total_entries) * 100, 2),
     "questions_details": questions_details
@@ -98,10 +100,10 @@ results.sort(reverse=True, key=lambda e: e["score"])
 print("Ranking Top 3 ==========================")
 for r in results[:3]:
     print(
-        r["run_id"],
-        r["score"] + " %",
-        r["median_runtime"] + " sec",
-        r["llm_model"] + " + " + r["retrieval_model"],
+        str(r["run_id"]),
+        str(r["score"]) + " %",
+        str(r["median_runtime"]) + " sec",
+        str(r["llm_model"]) + " + " + str(r["retrieval_model"]),
         sep="\t"
     )
 
