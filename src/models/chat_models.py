@@ -18,6 +18,7 @@ class ChatResponse(BaseModel):
     chunk_size: int
     top_k: int
     context_builder: float
+    used_sources: int
     ranking: str
     sources: list[Source] = Field(default_factory=list)
 

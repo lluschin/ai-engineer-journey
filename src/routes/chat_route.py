@@ -4,6 +4,8 @@ from fastapi import APIRouter, HTTPException
 
 import services.context_builder.context_builder as ContextBuilder
 from services.ranking.heuristic_ranker import HeuristicRanker
+from services.ranking.identity_ranker import IdentityRanker
+
 from models.chat_models import ChatRequest, ChatResponse
 
 logger = logging.getLogger(__name__)
@@ -90,7 +92,7 @@ async def rag_chat(msg: ChatRequest):
 
         # buildup context for llm
         logger.info("buildup context.")
-        context = ContextBuilder.create_context(ranked_sources)
+        context, nos = ContextBuilder.create_context(ranked_sources)
 
         # send promt to llm and create response
         logger.info("talk to llm.")
@@ -104,8 +106,10 @@ async def rag_chat(msg: ChatRequest):
             chunk_size=retrieval_service.chunking.chunk_size,
             top_k=retrieval_service.k,
             context_builder=ContextBuilder.CONTEXT_BUILDER_VERSION,
-            ranking='IdentityRanker',
-            sources=sources
+            #context_builder=0.1,
+            used_sources=nos,
+            ranking='HeuristicRanker',
+            sources=ranked_sources
         )
     
     except HTTPException:
