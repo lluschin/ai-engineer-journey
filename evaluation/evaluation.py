@@ -50,10 +50,13 @@ for i, question in enumerate(questions):
         for anys in question["any_group"]:
             satisfied += 1 if any(a.lower() in response.json()["message"].lower() for a in anys) else 0
     
+
+    used_sources = response.json()["used_sources"]
     details = {
         "question": question["question"],
         "answer": response.json()["message"],
-        "retrieval_sources": response.json()["sources"],
+        "used_sources": used_sources,
+        "retrieval_sources": response.json()["sources"][:used_sources],
         "score": round((satisfied / entries) * 100, 2)
     }
     questions_details.append(details)
