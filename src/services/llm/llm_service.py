@@ -1,15 +1,10 @@
-import logging
 from abc import ABC, abstractmethod
-
-logger = logging.getLogger(__name__)
 
 class LLMService(ABC):
 
     def __init__(self, model, client):
         self.model = model
         self.client = client
-
-        logger.info(f"use model {self.model}")
         
 
     async def chat(self, query: str) -> str:

@@ -3,8 +3,8 @@ import os
 class ChunkService:
 
     def __init__(self):
-        self.chunk_size = int(os.getenv("CHUNK_SIZE"))
-        self.overlap = int(os.getenv("CHUNK_OVERLAP"))
+        self.chunk_size = 220
+        self.overlap = 100
         
         if self.chunk_size <= 0:
             raise ValueError("chunk_size must be greater than 0.")

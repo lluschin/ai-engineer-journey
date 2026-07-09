@@ -18,15 +18,14 @@ class HeuristicRanker(IdentityRanker):
     MIN_LENGTH = 150
     MAX_LENGTH = 800
 
-    def __init__(self, query: str, context: list[Source]):
-        logger.info("Using heuristic reranking.")
+    def __init__(self):
         self.snowball_stemmer = SnowballStemmer(language='german')
 
-        super().__init__(query, context)
+        super().__init__()
     
 
-    def rank(self) -> list[Source]:
-        ranked_context = copy.deepcopy(self.context)
+    def rank(self, query: str, context: list[Source]) -> list[Source]:
+        ranked_context = copy.deepcopy(context)
 
         for c in ranked_context:
             logger.debug("=============================")
@@ -34,9 +33,9 @@ class HeuristicRanker(IdentityRanker):
 
             c.score = (
                 0.75 * self._get_retrival_score(c)
-                + 0.20 * self._get_query_term_overlap(c)
+                + 0.20 * self._get_query_term_overlap(query, c)
                 + 0.05 * self._get_length_score(c)
-                - 0.10 * self._get_duplicate_penalty(c)
+                - 0.10 * self._get_duplicate_penalty(c, context)
             )
 
             logger.debug("new score: " + str(c.score))
@@ -50,7 +49,7 @@ class HeuristicRanker(IdentityRanker):
         return source.score
     
     
-    def _get_query_term_overlap(self, source: Source) -> float:
+    def _get_query_term_overlap(self, query: str, source: Source) -> float:
         def create_set(text: set) -> set[str]:
             # tokenize
             tokens = word_tokenize(text, language='german')
@@ -66,7 +65,7 @@ class HeuristicRanker(IdentityRanker):
 
             return tokens
 
-        query_set = create_set(self.query)
+        query_set = create_set(query)
         source_set = create_set(source.document)
         
         overlap_set = query_set.intersection(source_set)
@@ -91,10 +90,10 @@ class HeuristicRanker(IdentityRanker):
         return length_score
 
 
-    def _get_duplicate_penalty(self, source: Source) -> float:
+    def _get_duplicate_penalty(self, source: Source, context: list[Source]) -> float:
         max_similarity = 0.0
 
-        for other in self.context:
+        for other in context:
             if other.document == source.document:
                 continue
 

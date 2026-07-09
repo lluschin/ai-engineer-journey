@@ -1,12 +1,9 @@
-import os
 from openai import AsyncOpenAI
-
 from services.llm.llm_service import LLMService
 
-class OpenAILLM(LLMService):
+class OpenAiLLM(LLMService):
 
-    def __init__(self):
-        model = os.getenv("LLM_MODEL")
+    def __init__(self, model):
         client = AsyncOpenAI()
         super().__init__(model, client)
 

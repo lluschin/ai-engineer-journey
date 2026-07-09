@@ -1,4 +1,3 @@
-import os
 import logging
 
 from services.chunking_service import ChunkService
@@ -11,14 +10,12 @@ from abc import ABC, abstractmethod
 
 class RetrievalService(ABC):
 
-    def __init__(self, model, client, qdrant_collection_name:str):
+    def __init__(self, model, client, qdrant_collection_name:str, k: int):
         self.model = model
         self.client = client
         self.qdrant = QdrantService(qdrant_collection_name)
         self.chunking = ChunkService()
-        self.k = int(os.getenv("RETRIEVAL_TOPK"))
-
-        logger.info(f"use model {self.model}")
+        self.k = k
 
 
     def ingest_text(self, text: str):
