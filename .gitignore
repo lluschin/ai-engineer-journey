@@ -2,6 +2,9 @@
 data
 scripts
 
+# files
+roadmap.md
+
 # runtime data
 env/.*/
 **/__pycache__
