@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 
 
 class Source(BaseModel):
+    id: str
     document: str
     score: float
 

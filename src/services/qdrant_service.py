@@ -31,7 +31,7 @@ class QdrantService:
             limit=top_k
         ).points
 
-        result_list = [Source(document=h.payload["Infotext"], score=h.score) for h in hits]
+        result_list = [Source(id=h.id, document=h.payload["Infotext"], score=h.score) for h in hits]
         return result_list
 
 
