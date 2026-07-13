@@ -1,6 +1,7 @@
 import json
 import time
 import requests
+import statistics
 
 from datetime import datetime
 from pathlib import Path
@@ -50,14 +51,40 @@ for i, question in enumerate(questions):
         for anys in question["any_group"]:
             satisfied += 1 if any(a.lower() in response.json()["message"].lower() for a in anys) else 0
     
-
+    retrieval_model = response.json()["retrieval_model"]
     used_sources = response.json()["used_sources"]
+    retrieval_sources = response.json()["sources"][:used_sources]
+ 
+    collection_name = "AiJourney_" + retrieval_model
+    expected_chunks = question["expected_chunks"][collection_name]
+    relevant_chunks = [r for r in retrieval_sources if r in expected_chunks]
+
+    recall = -1
+    precision = -1
+    mrr = None
+
+    if expected_chunks:
+        recall = len(relevant_chunks) / len(expected_chunks)
+
+        mrr = 0
+
+        for rank, chunk in enumerate(retrieval_sources, start=1):
+            if chunk in expected_chunks:
+                mrr = 1.0 / rank
+                break
+
+    if retrieval_sources:
+        precision = len(relevant_chunks) / len(retrieval_sources)
+
     details = {
         "question": question["question"],
         "answer": response.json()["message"],
         "used_sources": used_sources,
-        "retrieval_sources": response.json()["sources"][:used_sources],
-        "score": round((satisfied / entries) * 100, 2)
+        "retrieval_sources": retrieval_sources,
+        "score": round((satisfied / entries) * 100, 2),
+        "recall@k": recall,
+        "precision@k": precision,
+        "mrr": mrr
     }
     questions_details.append(details)
 
@@ -65,6 +92,16 @@ for i, question in enumerate(questions):
     total_satisfied += satisfied
 
 
+
+
+macro_recall = [q["recall@k"] for q in questions_details if q["recall@k"] >= 0]
+macro_recall = sum(macro_recall) / len(macro_recall)
+
+macro_precision = [q["precision@k"] for q in questions_details if q["precision@k"] >= 0]
+macro_precision = sum(macro_precision) / len(macro_precision)
+
+macro_mrr = [q["mrr"] for q in questions_details if q["mrr"] >= 0]
+macro_mrr = sum(macro_mrr) / len(macro_mrr)
 
 result = {
     "run_id": str(datetime.now()),
@@ -74,13 +111,27 @@ result = {
     "top_k": response.json()["top_k"],
     "context_builder": response.json()["context_builder"],
     "ranking": response.json()["ranking"],
-    "median_runtime": round(total_time[int(len(total_time) / 2)], 2),
+    "median_runtime": statistics.median(total_time),
     "score": round((total_satisfied / total_entries) * 100, 2),
+    "MacroRecall": macro_recall,
+    "MacroPrecision": macro_precision,
+    "MacroMRR": macro_mrr,
     "questions_details": questions_details
 }
 
 print("\ndone.")
-    
+
+def print_run(r):
+    print(
+        str(r["run_id"]) + " " + str(r["llm_model"]) + " + " + str(r["retrieval_model"]),
+        "Answer Score:\t" + str(r["score"]) + " %",
+        "Median Runtime" + str(r["median_runtime"]) + " sec",
+        f"Macro Recall@{str(r["top_k"])}" + str(r["MacroRecall"]),
+        f"Macro Precision@{str(r["top_k"])}" + str(r["MacroPrecision"]),
+        "Macro MRR" + str(r["MacroMRR"]),
+    )
+
+print_run(result)
 
 # save in json
 results = []
@@ -102,12 +153,6 @@ results.sort(reverse=True, key=lambda e: e["score"])
 
 print("Ranking Top 3 ==========================")
 for r in results[:3]:
-    print(
-        str(r["run_id"]),
-        str(r["score"]) + " %",
-        str(r["median_runtime"]) + " sec",
-        str(r["llm_model"]) + " + " + str(r["retrieval_model"]),
-        sep="\t"
-    )
-
+    print_run(r)
+    print("\n\n")
 print("========================================")
