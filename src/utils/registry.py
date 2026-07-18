@@ -2,23 +2,59 @@ import sys
 import toml
 import logging
 
+from collections.abc import Callable
+
 from services.llm.llm_service import LLMService
-from services.llm.ollama_llm import OllamaLLM
-from services.llm.openai_llm import OpenAiLLM
-
 from services.retrieval.retrieval_service import RetrievalService
-from services.retrieval.ollama_retrieval import OllamaRetrieval
-from services.retrieval.openai_retrieval import OpenAiRetrieval
-
 from services.ranking.identity_ranker import IdentityRanker
-from services.ranking.heuristic_ranker import HeuristicRanker
-
 from services.context_builder.simple_context_builder import SimpleContextBuilder
-from services.context_builder.ordered_context_builder import OrderedContextBuilder
-
 from services.query_expansion.query_expander import QueryExpander
-from services.query_expansion.identity_query_expander import IdentityQueryExpander
-from services.query_expansion.llm_query_expander import LLMQueryExpander
+
+import utils.factories.llm_service_factory as llm_service_factory
+import utils.factories.retrieval_service_factory as retrieval_service_factory
+import utils.factories.ranking_service_factory as ranking_service_factory
+import utils.factories.context_builder_factory as context_builder_factory
+import utils.factories.query_expander_factory as query_expander_factory
+
+LLM_SERVICE: dict[
+    str,
+    Callable[[str], LLMService],
+] = {
+    "OllamaLLM": llm_service_factory.create_ollama_llm,
+    "OpenAiLLM": llm_service_factory.create_openai_llm,
+}
+
+RETRIEVAL_SERVICE : dict[
+    str,
+    Callable[[str, int], RetrievalService],
+] = {
+    "OllamaRetrieval": retrieval_service_factory.create_ollama_retrieval,
+    "OpenAiRetrieval": retrieval_service_factory.create_openai_retrieval,
+}
+
+RANKING_SERVICE : dict[
+    str,
+    Callable[[], IdentityRanker],
+] = {
+    "IdentityRanker": ranking_service_factory.create_identity_ranker,
+    "HeuristicRanker": ranking_service_factory.create_heuristic_ranker,
+}
+
+CONTEXT_BUILDER : dict[
+    str,
+    Callable[[], SimpleContextBuilder],
+] = {
+    "SimpleContextBuilder": context_builder_factory.create_simple_context_builder,
+    "OrderedContextBuilder": context_builder_factory.create_ordered_context_builder,
+}
+
+QUERY_EXPANDER : dict[
+    str,
+    Callable[[LLMService], QueryExpander],
+] = {
+    "IdentityQueryExpander": query_expander_factory.create_identity_query_expander,
+    "LLMQueryExpander": query_expander_factory.create_llm_query_expander,
+}
 
 
 logger = logging.getLogger(__name__)
@@ -53,7 +89,7 @@ class ServiceRegistry:
         model_name = settings['llm']['model']
         logger.info(f'service: {service_name}')
         logger.info(f'model: {model_name}')
-        new_llm_service = getattr(sys.modules[__name__], service_name)(model_name)
+        new_llm_service = LLM_SERVICE[service_name](model_name)
 
         logger.info("init retrieval service.")
         service_name = settings['retrieval']['service']
@@ -62,22 +98,22 @@ class ServiceRegistry:
         logger.info(f'service: {service_name}')
         logger.info(f'model: {model_name}')
         logger.info(f'top_k: {top_k}')
-        new_retrieval_service = getattr(sys.modules[__name__], service_name)(model_name, top_k)
+        new_retrieval_service = RETRIEVAL_SERVICE[service_name](model_name, top_k)
 
         logger.info("init ranker.")
         service_name = settings['ranker']['service']
         logger.info(f'service: {service_name}')
-        new_ranker = getattr(sys.modules[__name__], service_name)()
+        new_ranker = RANKING_SERVICE[service_name]()
 
         logger.info("init context builder.")
         service_name = settings['context_builder']['service']
         logger.info(f'service: {service_name}')
-        new_context_builder = getattr(sys.modules[__name__], service_name)()
+        new_context_builder = CONTEXT_BUILDER[service_name]()
 
         logger.info("init query expander.")
         service_name = settings['query_expander']['service']
         logger.info(f'service: {service_name}')
-        new_query_expander = getattr(sys.modules[__name__], service_name)()
+        new_query_expander = QUERY_EXPANDER[service_name](new_llm_service)
 
         self.llm_service = new_llm_service
         self.retrieval_service = new_retrieval_service
