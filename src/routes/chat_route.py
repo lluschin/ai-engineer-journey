@@ -73,13 +73,18 @@ async def rag_chat(msg: ChatRequest):
                 detail="Message must not be empty."
             )
         
+        # expand query for improved retrieval
+        logger.info("Expanding query.")
+        original_query = cleaned_message
+        expanded_query = service_registry.query_expander.expand(original_query)
+        
         # search database for embeddings
         logger.info("Searching for embeddings.")
-        sources = await service_registry.retrieval_service.search(cleaned_message)
+        sources = await service_registry.retrieval_service.search(expanded_query)
 
         # rerank the given sources
         logger.info("rerank sources.")
-        ranked_sources = service_registry.ranker.rank(cleaned_message, sources)
+        ranked_sources = service_registry.ranker.rank(original_query, sources)
 
         # buildup context for llm
         logger.info("buildup context.")
@@ -87,7 +92,7 @@ async def rag_chat(msg: ChatRequest):
 
         # send promt to llm and create response
         logger.info("talk to llm.")
-        response = await service_registry.llm_service.rag_chat(cleaned_message, context)
+        response = await service_registry.llm_service.rag_chat(original_query, context)
 
         logger.info(f"Creating response for user {msg.user}")
         return ChatResponse(

@@ -2,9 +2,11 @@ import sys
 import toml
 import logging
 
+from services.llm.llm_service import LLMService
 from services.llm.ollama_llm import OllamaLLM
 from services.llm.openai_llm import OpenAiLLM
 
+from services.retrieval.retrieval_service import RetrievalService
 from services.retrieval.ollama_retrieval import OllamaRetrieval
 from services.retrieval.openai_retrieval import OpenAiRetrieval
 
@@ -13,6 +15,10 @@ from services.ranking.heuristic_ranker import HeuristicRanker
 
 from services.context_builder.simple_context_builder import SimpleContextBuilder
 from services.context_builder.ordered_context_builder import OrderedContextBuilder
+
+from services.query_expansion.query_expander import QueryExpander
+from services.query_expansion.identity_query_expander import IdentityQueryExpander
+from services.query_expansion.llm_query_expander import LLMQueryExpander
 
 
 logger = logging.getLogger(__name__)
@@ -30,12 +36,11 @@ class ServiceRegistry:
 
     def __init__(self):
         if not getattr(self, '_is_initialized', False):
-            print('initializing')
-
-            self.llm_service = None
-            self.retrieval_service = None
-            self.ranker = None
-            self.context_builder = None
+            self.llm_service: LLMService = None
+            self.retrieval_service: RetrievalService = None
+            self.ranker: IdentityRanker = None
+            self.context_builder: SimpleContextBuilder = None
+            self.query_expander: QueryExpander = None
 
             self._is_initialized = True
     
@@ -69,10 +74,16 @@ class ServiceRegistry:
         logger.info(f'service: {service_name}')
         new_context_builder = getattr(sys.modules[__name__], service_name)()
 
+        logger.info("init query expander.")
+        service_name = settings['query_expander']['service']
+        logger.info(f'service: {service_name}')
+        new_query_expander = getattr(sys.modules[__name__], service_name)()
+
         self.llm_service = new_llm_service
         self.retrieval_service = new_retrieval_service
         self.ranker = new_ranker
         self.context_builder = new_context_builder
+        self.query_expander = new_query_expander
 
 
     def load_settings_file(self, filepath: str):
