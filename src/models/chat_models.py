@@ -1,5 +1,11 @@
 from pydantic import BaseModel, Field
 
+class Runtime(BaseModel):
+    query_expansion_runtime: float = -1
+    retrieval_runtime: float = -1
+    reranking_runtime: float = -1
+    context_building_runtime: float = -1
+    llm_call_runtime:float = -1
 
 class Source(BaseModel):
     id: str
@@ -26,6 +32,7 @@ class ChatResponse(BaseModel):
     used_sources: int
     ranking: str
     sources: list[Source] = Field(default_factory=list)
+    runtime: Runtime
 
 
 class EmptyMessageException(Exception):

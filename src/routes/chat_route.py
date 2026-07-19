@@ -1,7 +1,13 @@
 import logging
+import time
 
 from fastapi import APIRouter, HTTPException
-from models.chat_models import ChatRequest, ChatResponse, Environment
+from models.chat_models import (
+    Runtime,
+    ChatRequest,
+    ChatResponse,
+    Environment,
+)
 from utils.registry import ServiceRegistry
 
 logger = logging.getLogger(__name__)
@@ -73,26 +79,43 @@ async def rag_chat(msg: ChatRequest):
                 detail="Message must not be empty."
             )
         
+        runtime = Runtime()
+
         # expand query for improved retrieval
+        start_t = time.perf_counter()
         logger.info("Expanding query.")
         original_query = cleaned_message
-        expanded_query = service_registry.query_expander.expand(original_query)
+        expanded_query = await service_registry.query_expander.expand(original_query)
+        runtime.query_expansion_runtime = time.perf_counter() - start_t
+        logger.info("Expanding query finished in %.2f seconds", runtime.query_expansion_runtime)
         
         # search database for embeddings
+        start_t = time.perf_counter()
         logger.info("Searching for embeddings.")
         sources = await service_registry.retrieval_service.search(expanded_query)
+        runtime.retrieval_runtime = time.perf_counter() - start_t
+        logger.info("Retrieval finished in %.2f seconds", runtime.retrieval_runtime)
 
         # rerank the given sources
+        start_t = time.perf_counter()
         logger.info("rerank sources.")
         ranked_sources = service_registry.ranker.rank(original_query, sources)
+        runtime.reranking_runtime = time.perf_counter() - start_t
+        logger.info("Reranking finished in %.2f seconds", runtime.reranking_runtime)
 
         # buildup context for llm
+        start_t = time.perf_counter()
         logger.info("buildup context.")
         context, nos = service_registry.context_builder.create_context(ranked_sources)
+        runtime.context_building_runtime = time.perf_counter() - start_t
+        logger.info("Context Building finished in %.2f seconds", runtime.context_building_runtime)
 
         # send promt to llm and create response
+        start_t = time.perf_counter()
         logger.info("talk to llm.")
         response = await service_registry.llm_service.rag_chat(original_query, context)
+        runtime.llm_call_runtime = time.perf_counter() - start_t
+        logger.info("LLM call finished in %.2f seconds", runtime.llm_call_runtime)
 
         logger.info(f"Creating response for user {msg.user}")
         return ChatResponse(
@@ -104,7 +127,8 @@ async def rag_chat(msg: ChatRequest):
             context_builder = type(service_registry.context_builder).__name__,
             used_sources = nos,
             ranking = type(service_registry.ranker).__name__,
-            sources = ranked_sources
+            sources = ranked_sources,
+            runtime=runtime,
         )
     
     except HTTPException:
