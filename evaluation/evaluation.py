@@ -1,158 +1,158 @@
+import argparse
 import json
-import time
-import requests
-import statistics
-
-from datetime import datetime
 from pathlib import Path
+from typing import Any, Sequence
 
-URL = "http://127.0.0.1:8000/rag_chat"
-
-questions_filepath = Path("./evaluation/questions.json")
-results_filepath = Path("./evaluation/results.json")
-
-
-if not questions_filepath.exists():
-    raise FileNotFoundError("questions file not found.", questions_filepath)
-
-with open(questions_filepath, "r") as fp:
-    questions = json.load(fp)
-
-total_entries = 0
-total_satisfied = 0
-total_time = []
-questions_details = []
-
-for i, question in enumerate(questions):
-    print(f"run {i+1}/{len(questions)}", end="\r")
-    data = {
-        "user": "Wet0zelott",
-        "message": question["question"]
-    }
-
-    start = time.time()
-    response = requests.post(URL, json=data)
-    response.raise_for_status()
-    end = time.time()
-
-    total_time.append(end - start)    
-
-    # eval response
-    entries = 0
-    satisfied = 0
-
-    if "must_contain" in question.keys():
-        entries += len(question["must_contain"])
-        for musts in question["must_contain"]:
-            satisfied += 1 if musts.lower() in response.json()["message"].lower() else 0
-        
-    if "any_group" in question.keys():
-        entries += len(question["any_group"])
-        for anys in question["any_group"]:
-            satisfied += 1 if any(a.lower() in response.json()["message"].lower() for a in anys) else 0
-    
-    retrieval_model = response.json()["retrieval_model"]
-    used_sources = response.json()["used_sources"]
-    retrieval_sources = response.json()["sources"][:used_sources]
- 
-    collection_name = "AiJourney_" + retrieval_model
-    expected_chunks = question["expected_chunks"][collection_name]
-    relevant_chunks = [r for r in retrieval_sources if r in expected_chunks]
-
-    recall = -1
-    precision = -1
-    mrr = None
-
-    if expected_chunks:
-        recall = len(relevant_chunks) / len(expected_chunks)
-
-        mrr = 0
-
-        for rank, chunk in enumerate(retrieval_sources, start=1):
-            if chunk in expected_chunks:
-                mrr = 1.0 / rank
-                break
-
-    if retrieval_sources:
-        precision = len(relevant_chunks) / len(retrieval_sources)
-
-    details = {
-        "question": question["question"],
-        "answer": response.json()["message"],
-        "used_sources": used_sources,
-        "retrieval_sources": retrieval_sources,
-        "score": round((satisfied / entries) * 100, 2),
-        "recall@k": recall,
-        "precision@k": precision,
-        "mrr": mrr
-    }
-    questions_details.append(details)
-
-    total_entries += entries
-    total_satisfied += satisfied
+from evaluation.metrics.mrr_metric import MRRMetric
+from evaluation.metrics.precision_metric import PrecisionMetric
+from evaluation.metrics.recall_metric import RecallMetric
+from evaluation.metrics.score_metric import ScoreMetric
+from evaluation.model.question import Experiment, Question
+from evaluation.reporter import ExperimentReporter
+from evaluation.runner import Runner
+from evaluation.utils.helpers import load_configuration
 
 
+def load_questions(
+    questions_filepath: str | Path,
+    retrieval_model: str,
+) -> list[Question]:
+    filepath = Path(questions_filepath)
+
+    if not filepath.is_file():
+        raise FileNotFoundError(f"Questions file not found: {filepath}")
+
+    with filepath.open(encoding="utf-8") as file:
+        question_data = json.load(file)
+
+    if not isinstance(question_data, list):
+        raise ValueError("Questions file must contain a JSON list.")
+
+    return [
+        create_question(data, retrieval_model, index)
+        for index, data in enumerate(question_data, start=1)
+    ]
 
 
-macro_recall = [q["recall@k"] for q in questions_details if q["recall@k"] >= 0]
-macro_recall = sum(macro_recall) / len(macro_recall)
+def create_question(
+    data: Any,
+    retrieval_model: str,
+    index: int,
+) -> Question:
+    if not isinstance(data, dict):
+        raise ValueError(f"Question {index} must be a JSON object.")
 
-macro_precision = [q["precision@k"] for q in questions_details if q["precision@k"] >= 0]
-macro_precision = sum(macro_precision) / len(macro_precision)
-
-macro_mrr = [q["mrr"] for q in questions_details if q["mrr"] >= 0]
-macro_mrr = sum(macro_mrr) / len(macro_mrr)
-
-result = {
-    "run_id": str(datetime.now()),
-    "llm_model": response.json()["llm_model"],
-    "retrieval_model": response.json()["retrieval_model"],
-    "chunk_size": response.json()["chunk_size"],
-    "top_k": response.json()["top_k"],
-    "context_builder": response.json()["context_builder"],
-    "ranking": response.json()["ranking"],
-    "median_runtime": statistics.median(total_time),
-    "score": round((total_satisfied / total_entries) * 100, 2),
-    "MacroRecall": macro_recall,
-    "MacroPrecision": macro_precision,
-    "MacroMRR": macro_mrr,
-    "questions_details": questions_details
-}
-
-print("\ndone.")
-
-def print_run(r):
-    print(
-        str(r["run_id"]) + " " + str(r["llm_model"]) + " + " + str(r["retrieval_model"]),
-        "Answer Score:\t" + str(r["score"]) + " %",
-        "Median Runtime" + str(r["median_runtime"]) + " sec",
-        f"Macro Recall@{str(r["top_k"])}" + str(r["MacroRecall"]),
-        f"Macro Precision@{str(r["top_k"])}" + str(r["MacroPrecision"]),
-        "Macro MRR" + str(r["MacroMRR"]),
+    question_data = dict(data)
+    question_data["expected_chunks"] = resolve_expected_chunks(
+        question_data.get("expected_chunks", []),
+        retrieval_model,
+        index,
     )
 
-print_run(result)
-
-# save in json
-results = []
-
-if results_filepath.exists():
-    with open(results_filepath, "r", encoding='utf8') as fp:
-        results = json.load(fp)
-
-results.append(result)
-
-with open(results_filepath, "w", encoding='utf8') as fp:
-    json.dump(results, fp, indent=4)
-
-print("saved.")
+    return Question.model_validate(question_data)
 
 
-# print (ranking)
-results.sort(reverse=True, key=lambda e: e["score"])
+def resolve_expected_chunks(
+    expected_chunks: Any,
+    retrieval_model: str,
+    question_index: int,
+) -> list[str]:
+    if isinstance(expected_chunks, list):
+        return expected_chunks
 
-print("Ranking Top 3 ==========================")
-for r in results[:3]:
-    print_run(r)
-    print("\n\n")
-print("========================================")
+    if not isinstance(expected_chunks, dict):
+        raise ValueError(
+            f"'expected_chunks' of question {question_index} "
+            "must be a list or an object."
+        )
+
+    possible_keys = (
+        f"AiJourney_{retrieval_model}",
+        retrieval_model,
+    )
+
+    for key in possible_keys:
+        if key in expected_chunks:
+            chunks = expected_chunks[key]
+            if not isinstance(chunks, list):
+                raise ValueError(
+                    f"Expected chunks for '{key}' in question "
+                    f"{question_index} must be a list."
+                )
+            return chunks
+
+    available_keys = ", ".join(expected_chunks) or "none"
+    raise ValueError(
+        f"No expected chunks found for retrieval model "
+        f"'{retrieval_model}' in question {question_index}. "
+        f"Available keys: {available_keys}"
+    )
+
+
+def create_experiment(
+    config_filepath: str | Path,
+    questions_filepath: str | Path,
+) -> Experiment:
+    configuration = load_configuration(str(config_filepath))
+    questions = load_questions(
+        questions_filepath,
+        configuration.retrieval_model,
+    )
+
+    return Experiment(
+        configuration=configuration,
+        questions=questions,
+    )
+
+
+def create_runner(experiment: Experiment) -> Runner:
+    return Runner(
+        experiment=experiment,
+        metrics=[
+            ScoreMetric(),
+            RecallMetric(),
+            PrecisionMetric(),
+            MRRMetric(),
+        ],
+    )
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Evaluate a RAG configuration against a question dataset."
+    )
+    parser.add_argument(
+        "--config",
+        required=True,
+        type=Path,
+        help="Path to the TOML configuration.",
+    )
+    parser.add_argument(
+        "--questions",
+        required=True,
+        type=Path,
+        help="Path to the questions JSON file.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("evaluation/results"),
+        help=(
+            "Directory for result files "
+            "(default: evaluation/results)."
+        ),
+    )
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    experiment = create_experiment(args.config, args.questions)
+    result = create_runner(experiment).run()
+    result_filepath = ExperimentReporter(args.output_dir).report(result)
+    print(f"\nResult saved to {result_filepath}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
