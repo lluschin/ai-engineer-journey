@@ -35,6 +35,12 @@ class RetrievalService(ABC):
         embedding = await self._create_embedding(query)
 
         top_k_results = await self.qdrant.search(embedding, self.k)
+
+        if not top_k_results:
+            raise RuntimeError(
+                f"Retrieval returned no embedding for query {query!r}"
+            )
+
         return top_k_results
 
 

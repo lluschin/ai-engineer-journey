@@ -1,5 +1,9 @@
+import logging
+
 from services.query_expansion.query_expander import QueryExpander
 from services.llm.llm_service import LLMService
+
+logger = logging.getLogger(__name__)
 
 class LLMQueryExpander(QueryExpander):
 
@@ -20,4 +24,11 @@ class LLMQueryExpander(QueryExpander):
         {query}
         """
 
-        return await self.llm_service.chat(prompt)
+        expanded_query = await self.llm_service.chat(prompt)
+        expanded_query = expanded_query.strip()
+
+        if not expanded_query:
+            logger.warning("Query expander returned an empty string. Using original Query instead")
+            expanded_query = query
+        
+        return expanded_query

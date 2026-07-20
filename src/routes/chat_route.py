@@ -88,6 +88,9 @@ async def rag_chat(msg: ChatRequest):
         expanded_query = await service_registry.query_expander.expand(original_query)
         runtime.query_expansion_runtime = time.perf_counter() - start_t
         logger.info("Expanding query finished in %.2f seconds", runtime.query_expansion_runtime)
+
+        logger.info("Original query: %r", original_query)
+        logger.info("Expanded query: %r", expanded_query)
         
         # search database for embeddings
         start_t = time.perf_counter()
