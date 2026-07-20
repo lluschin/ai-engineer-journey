@@ -8,13 +8,13 @@ from services.llm.llm_service import LLMService
 from services.retrieval.retrieval_service import RetrievalService
 from services.ranking.identity_ranker import IdentityRanker
 from services.context_builder.simple_context_builder import SimpleContextBuilder
-from services.query_expansion.query_expander import QueryExpander
+from services.query_processing.query_processor import QueryProcessor
 
 import utils.factories.llm_service_factory as llm_service_factory
 import utils.factories.retrieval_service_factory as retrieval_service_factory
 import utils.factories.ranking_service_factory as ranking_service_factory
 import utils.factories.context_builder_factory as context_builder_factory
-import utils.factories.query_expander_factory as query_expander_factory
+import utils.factories.query_processor_factory as query_processor_factory
 
 LLM_SERVICE: dict[
     str,
@@ -50,10 +50,11 @@ CONTEXT_BUILDER : dict[
 
 QUERY_EXPANDER : dict[
     str,
-    Callable[[LLMService], QueryExpander],
+    Callable[[LLMService], QueryProcessor],
 ] = {
-    "IdentityQueryExpander": query_expander_factory.create_identity_query_expander,
-    "LLMQueryExpander": query_expander_factory.create_llm_query_expander,
+    "IdentityQueryProcessor": query_processor_factory.create_identity_query_processor,
+    "LLMQueryExpander": query_processor_factory.create_llm_query_expander,
+    "LLMQueryRewriter": query_processor_factory.create_llm_query_rewriter,
 }
 
 
@@ -76,7 +77,7 @@ class ServiceRegistry:
             self.retrieval_service: RetrievalService = None
             self.ranker: IdentityRanker = None
             self.context_builder: SimpleContextBuilder = None
-            self.query_expander: QueryExpander = None
+            self.query_expander: QueryProcessor = None
 
             self._is_initialized = True
     

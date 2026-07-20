@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 class Runtime(BaseModel):
-    query_expansion_runtime: float = -1
+    query_processing_runtime: float = -1
     retrieval_runtime: float = -1
     reranking_runtime: float = -1
     context_building_runtime: float = -1

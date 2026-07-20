@@ -12,7 +12,7 @@ from utils.registry import ServiceRegistry
 
 logger = logging.getLogger(__name__)
 
-SETTINGS_FILEPATH = r'../data/qwen3_bge-m3.toml'
+SETTINGS_FILEPATH = r'../data/qwen3_bge-m3+qr.toml'
 
 service_registry = ServiceRegistry()
 service_registry.load_settings_file(SETTINGS_FILEPATH)
@@ -83,11 +83,11 @@ async def rag_chat(msg: ChatRequest):
 
         # expand query for improved retrieval
         start_t = time.perf_counter()
-        logger.info("Expanding query.")
+        logger.info("Processing query.")
         original_query = cleaned_message
-        expanded_query = await service_registry.query_expander.expand(original_query)
-        runtime.query_expansion_runtime = time.perf_counter() - start_t
-        logger.info("Expanding query finished in %.2f seconds", runtime.query_expansion_runtime)
+        expanded_query = await service_registry.query_expander.process(original_query)
+        runtime.query_processing_runtime = time.perf_counter() - start_t
+        logger.info("Processing query finished in %.2f seconds", runtime.query_processing_runtime)
 
         logger.info("Original query: %r", original_query)
         logger.info("Expanded query: %r", expanded_query)

@@ -1,17 +1,17 @@
 import logging
 
-from services.query_expansion.query_expander import QueryExpander
+from services.query_processing.query_processor import QueryProcessor
 from services.llm.llm_service import LLMService
 
 logger = logging.getLogger(__name__)
 
-class LLMQueryExpander(QueryExpander):
+class LLMQueryExpander(QueryProcessor):
 
     def __init__(self, llm_service: LLMService):
         self.llm_service = llm_service
 
 
-    async def expand(self, query: str) -> str:
+    async def process(self, query: str) -> str:
         prompt = f"""
         Rewrite the following user question into a concise search query
         for semantic document retrieval.

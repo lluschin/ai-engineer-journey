@@ -5,14 +5,14 @@
             "Guido van Rossum"
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "c949463e-29b1-4854-840b-baa6668791f6"
+            "AiJourney_text-embedding-3-small": [
+                "8d8920dc-6cac-4938-91fa-dfe857bec489"
             ],
             "AiJourney_nomic-embed-text": [
                 "679c8e42-ccdc-4d59-86af-f10f7ee27607"
             ],
-            "AiJourney_text-embedding-3-small": [
-                "8d8920dc-6cac-4938-91fa-dfe857bec489"
+            "AiJourney_bge-m3": [
+                "c949463e-29b1-4854-840b-baa6668791f6"
             ]
         }
     },
@@ -25,16 +25,15 @@
             "AWS-Infrastruktur"
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "e2be46b5-2779-4c15-9b06-babf83cc2fc0"
+            "AiJourney_text-embedding-3-small": [
+                "3b2f008e-d648-4b45-becc-7913f298cc88"
             ],
             "AiJourney_nomic-embed-text": [
                 "3f2e0355-7d98-45d4-be80-01c7967bf53f",
                 "71646582-b910-4a76-98ad-4098703358ca"
             ],
-            "AiJourney_text-embedding-3-small": [
-                "3b2f008e-d648-4b45-becc-7913f298cc88",
-                "6009294a-23db-4f34-8658-5a2044278a10"
+            "AiJourney_bge-m3": [
+                "e2be46b5-2779-4c15-9b06-babf83cc2fc0"
             ]
         }
     },
@@ -48,19 +47,17 @@
             "Vector Database"
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "a9ccef95-f6ee-4bce-a837-60aa8a217e7d",
-                "b135760d-c868-4e28-95b9-620def12f539"
+            "AiJourney_text-embedding-3-small": [
+                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
+                "88cc6964-7a12-4ba1-baa5-6512bbdc235c"
             ],
             "AiJourney_nomic-embed-text": [
                 "5630c285-7e6e-4870-9a22-c186ec553432",
                 "c46fc917-08de-486d-a21a-f450c819ac50"
             ],
-            "AiJourney_text-embedding-3-small": [
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
-                "e4f47ef9-2d31-462a-ae55-31aa62e52fc0"
+            "AiJourney_bge-m3": [
+                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
+                "b135760d-c868-4e28-95b9-620def12f539"
             ]
         }
     },
@@ -75,24 +72,20 @@
             "Milvus"
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "30776a51-4da8-4a43-be69-b548f6b170c2",
-                "698821d6-a71f-453d-b332-2b35d6b77e38",
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "b135760d-c868-4e28-95b9-620def12f539"
+            "AiJourney_text-embedding-3-small": [
+                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
+                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
+                "d97dbddc-7b0b-4447-9f8f-6138c33fe744"
             ],
             "AiJourney_nomic-embed-text": [
                 "5630c285-7e6e-4870-9a22-c186ec553432",
                 "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
                 "f88d6558-0b5a-49a5-b0ad-1a607edd5859"
             ],
-            "AiJourney_text-embedding-3-small": [
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
-                "76dbb25d-2656-4e96-b085-9bffcf666e08",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
-                "d97dbddc-7b0b-4447-9f8f-6138c33fe744"
+            "AiJourney_bge-m3": [
+                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
+                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
+                "b135760d-c868-4e28-95b9-620def12f539"
             ]
         }
     },
@@ -105,22 +98,22 @@
             "Optimierte Speicherung"
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "9a219c65-c51f-4791-ad99-0549f9eb1efa",
-                "b135760d-c868-4e28-95b9-620def12f539"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "5e282523-c8bf-4cde-a85e-c2ab8096adc6",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859"
-            ],
             "AiJourney_text-embedding-3-small": [
                 "4f7be8f6-330a-462c-a02f-8f46a2b53417",
                 "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
                 "947fec29-ba99-44bb-b341-baa8d2fb25e8",
                 "d97dbddc-7b0b-4447-9f8f-6138c33fe744"
+            ],
+            "AiJourney_nomic-embed-text": [
+                "5630c285-7e6e-4870-9a22-c186ec553432",
+                "c46fc917-08de-486d-a21a-f450c819ac50",
+                "f88d6558-0b5a-49a5-b0ad-1a607edd5859"
+            ],
+            "AiJourney_bge-m3": [
+                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
+                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
+                "9a219c65-c51f-4791-ad99-0549f9eb1efa",
+                "b135760d-c868-4e28-95b9-620def12f539"
             ]
         }
     },
@@ -134,10 +127,36 @@
             "Semantik"
         ],
         "expected_chunks": {
+            "AiJourney_text-embedding-3-small": [
+                "47ad70f6-a88b-41d7-815f-0ea2a985b2e8",
+                "76dbb25d-2656-4e96-b085-9bffcf666e08",
+                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
+                "89665cab-8e6a-466d-948b-8bd83ed89235",
+                "89c34a32-21ea-4bf4-85e0-d03453cfb2af",
+                "8d8920dc-6cac-4938-91fa-dfe857bec489",
+                "9e4cae03-849b-4acf-9b76-8d7c0de4ee74",
+                "a6e425d2-224c-43d5-a54c-4c7d57ed33c7",
+                "b4723a63-f8b3-4e8f-8f4a-093fb0cbe781",
+                "c3d350c7-87d3-4342-872c-09ef7bfcd553",
+                "d10ae2cb-0113-41af-b758-36c394512ee1",
+                "d97dbddc-7b0b-4447-9f8f-6138c33fe744",
+                "e4f47ef9-2d31-462a-ae55-31aa62e52fc0"
+            ],
+            "AiJourney_nomic-embed-text": [
+                "16ee91c4-e4ab-483d-96d7-383f56ae8b0d",
+                "5630c285-7e6e-4870-9a22-c186ec553432",
+                "6c2615bb-ce98-4fb9-957d-f52fd0a36338",
+                "71646582-b910-4a76-98ad-4098703358ca",
+                "982ddf21-2587-4804-8269-5de859d99c5d",
+                "c46fc917-08de-486d-a21a-f450c819ac50",
+                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
+                "f88d6558-0b5a-49a5-b0ad-1a607edd5859",
+                "fd56e344-372e-4810-93e4-b0b61115c5e1",
+                "fe739162-c493-480d-aafc-526cb5edd3d3"
+            ],
             "AiJourney_bge-m3": [
                 "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "46d9b7ca-08de-488e-a386-18b942af2173",
-                "51d462cd-fe85-49be-9d2d-e62ba64fab4c",
+                "698821d6-a71f-453d-b332-2b35d6b77e38",
                 "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
                 "8795180f-8257-4363-843e-537b17c14843",
                 "8d75888d-cebc-4d69-8d6e-420d0a77710d",
@@ -147,36 +166,6 @@
                 "b135760d-c868-4e28-95b9-620def12f539",
                 "c949463e-29b1-4854-840b-baa6668791f6",
                 "f9269a58-45fe-41e2-a3fb-fa8b583c3087"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "16ee91c4-e4ab-483d-96d7-383f56ae8b0d",
-                "386b95d4-5f20-4144-8c71-facdf6149896",
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "679c8e42-ccdc-4d59-86af-f10f7ee27607",
-                "6c2615bb-ce98-4fb9-957d-f52fd0a36338",
-                "982ddf21-2587-4804-8269-5de859d99c5d",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
-                "f69ccd67-0331-4af9-a980-5783cc86603a",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859",
-                "f9960927-b06e-4d93-9f7e-88adba7aece8",
-                "fd56e344-372e-4810-93e4-b0b61115c5e1",
-                "fe739162-c493-480d-aafc-526cb5edd3d3"
-            ],
-            "AiJourney_text-embedding-3-small": [
-                "47ad70f6-a88b-41d7-815f-0ea2a985b2e8",
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
-                "6009294a-23db-4f34-8658-5a2044278a10",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
-                "89665cab-8e6a-466d-948b-8bd83ed89235",
-                "8d8920dc-6cac-4938-91fa-dfe857bec489",
-                "93516877-382d-4513-b7c0-36ef93ea2a25",
-                "9e4cae03-849b-4acf-9b76-8d7c0de4ee74",
-                "a6e425d2-224c-43d5-a54c-4c7d57ed33c7",
-                "b4723a63-f8b3-4e8f-8f4a-093fb0cbe781",
-                "d10ae2cb-0113-41af-b758-36c394512ee1",
-                "d97dbddc-7b0b-4447-9f8f-6138c33fe744",
-                "e4f47ef9-2d31-462a-ae55-31aa62e52fc0"
             ]
         }
     },
@@ -191,581 +180,49 @@
             "Reranker"
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "0fa68ae5-d2c0-42fb-97ca-cda5ddc2e004",
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "30776a51-4da8-4a43-be69-b548f6b170c2",
-                "415f1fcf-e89c-4095-b3d8-17f6dc377fc6",
-                "46d9b7ca-08de-488e-a386-18b942af2173",
-                "51d462cd-fe85-49be-9d2d-e62ba64fab4c",
-                "698821d6-a71f-453d-b332-2b35d6b77e38",
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "91b91991-352c-4957-bb62-4e385075f74f",
-                "9b021efa-5bbf-457e-b980-9c38279bfbb6",
-                "a9ccef95-f6ee-4bce-a837-60aa8a217e7d",
-                "b135760d-c868-4e28-95b9-620def12f539",
-                "c0aaf482-407e-4da4-91c7-33737e607ff2",
-                "e9a9c2cb-c26e-46b9-9e97-a780a0057b95",
-                "fadac078-93a5-4cd8-97d7-f4c81b0d2a99"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "280c204d-b0a6-4cc3-809c-1a8b6a6229d0",
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "6c2615bb-ce98-4fb9-957d-f52fd0a36338",
-                "6c3bcbaf-d27a-4d60-ac9a-dcdc88c1994b",
-                "830e184d-578e-4b4f-92a2-3b26c2f67be9",
-                "a644589a-cb5f-4a0f-9732-9cbf3b1ca14c",
-                "bedc9fee-3829-4886-86cf-17db025edb8a",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859",
-                "f9960927-b06e-4d93-9f7e-88adba7aece8",
-                "fd56e344-372e-4810-93e4-b0b61115c5e1",
-                "fe739162-c493-480d-aafc-526cb5edd3d3"
-            ],
             "AiJourney_text-embedding-3-small": [
                 "2d33c12a-9197-430b-a06f-02800828e2f9",
-                "47ad70f6-a88b-41d7-815f-0ea2a985b2e8",
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
+                "63dcf693-8bb4-4bab-9115-6dddffc838ff",
+                "68914521-0b97-482a-82fa-4371294808df",
                 "72aa921a-9931-4ea0-b3aa-7b7d1701d910",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
+                "76dbb25d-2656-4e96-b085-9bffcf666e08",
+                "7d2f0037-0d1d-4485-868a-f97bd9b82c09",
                 "89c34a32-21ea-4bf4-85e0-d03453cfb2af",
                 "93516877-382d-4513-b7c0-36ef93ea2a25",
                 "947fec29-ba99-44bb-b341-baa8d2fb25e8",
                 "94aa75b8-64b0-4864-bd9d-7517fc34c68c",
-                "b4723a63-f8b3-4e8f-8f4a-093fb0cbe781",
-                "c3d350c7-87d3-4342-872c-09ef7bfcd553"
-            ]
-        }
-    },
-    {
-        "question": "Wer hat Java entwickelt?",
-        "any_group": [
-            [
-                "keine Antwort",
-                "nicht enthalten",
-                "nicht finden",
-                "wei\u00df ich nicht",
-                "nicht im Kontext",
-                "keine Information"
-            ]
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [],
-            "AiJourney_nomic-embed-text": [],
-            "AiJourney_text-embedding-3-small": []
-        }
-    },
-    {
-        "question": "Was ist Kubernetes?",
-        "any_group": [
-            [
-                "keine Antwort",
-                "nicht enthalten",
-                "nicht finden",
-                "wei\u00df ich nicht",
-                "nicht im Kontext",
-                "keine Information"
-            ]
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [],
-            "AiJourney_nomic-embed-text": [],
-            "AiJourney_text-embedding-3-small": []
-        }
-    },
-    {
-        "question": "Wer gewann die Fu\u00dfball-WM 2014?",
-        "any_group": [
-            [
-                "keine Antwort",
-                "nicht enthalten",
-                "nicht finden",
-                "wei\u00df ich nicht",
-                "nicht im Kontext",
-                "keine Information"
-            ]
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [],
-            "AiJourney_nomic-embed-text": [],
-            "AiJourney_text-embedding-3-small": []
-        }
-    },
-    {
-        "question": "Wer hat Python entwickelt?",
-        "must_contain": [
-            "Guido van Rossum"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "c949463e-29b1-4854-840b-baa6668791f6"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "679c8e42-ccdc-4d59-86af-f10f7ee27607"
-            ]
-        }
-    },
-    {
-        "question": "Was ist Bedrock?",
-        "must_contain": [
-            "AWS-Service",
-            "generative KI",
-            "Foundation Models",
-            "AWS-Infrastruktur"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "e2be46b5-2779-4c15-9b06-babf83cc2fc0"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "3f2e0355-7d98-45d4-be80-01c7967bf53f",
-                "71646582-b910-4a76-98ad-4098703358ca"
-            ]
-        }
-    },
-    {
-        "question": "Was ist Qdrant?",
-        "must_contain": [
-            "Indexstrukturen",
-            "Embeddings",
-            "Metadaten",
-            "Similarity Searches",
-            "Vector Database"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "a9ccef95-f6ee-4bce-a837-60aa8a217e7d",
-                "b135760d-c868-4e28-95b9-620def12f539"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "c46fc917-08de-486d-a21a-f450c819ac50"
-            ]
-        }
-    },
-    {
-        "question": "Welche Datenbank eignet sich f\u00fcr Embeddings?",
-        "must_contain": [
-            "Vector Databases",
-            "Similarity Searches",
-            "Qdrant",
-            "Pinecone",
-            "Weaviate",
-            "Milvus"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "30776a51-4da8-4a43-be69-b548f6b170c2",
-                "698821d6-a71f-453d-b332-2b35d6b77e38",
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "b135760d-c868-4e28-95b9-620def12f539"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859"
-            ]
-        }
-    },
-    {
-        "question": "Wie speichert man Vektoren?",
-        "must_contain": [
-            "Embeddings",
-            "Vector Databases",
-            "Hochdimensionale Vektorr\u00e4ume",
-            "Optimierte Speicherung"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "9a219c65-c51f-4791-ad99-0549f9eb1efa",
-                "b135760d-c868-4e28-95b9-620def12f539"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "5e282523-c8bf-4cde-a85e-c2ab8096adc6",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859"
-            ]
-        }
-    },
-    {
-        "question": "Welche L\u00f6sung kann semantische Suche durchf\u00fchren?",
-        "must_contain": [
-            "Embeddings",
-            "Vektoren",
-            "Vektorraum",
-            "Bedeutung",
-            "Semantik"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "46d9b7ca-08de-488e-a386-18b942af2173",
-                "51d462cd-fe85-49be-9d2d-e62ba64fab4c",
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "8795180f-8257-4363-843e-537b17c14843",
-                "8d75888d-cebc-4d69-8d6e-420d0a77710d",
-                "93eff6a3-c193-4db5-90ff-97dc8b5d7019",
-                "9b021efa-5bbf-457e-b980-9c38279bfbb6",
-                "a9ccef95-f6ee-4bce-a837-60aa8a217e7d",
-                "b135760d-c868-4e28-95b9-620def12f539",
-                "c949463e-29b1-4854-840b-baa6668791f6",
-                "f9269a58-45fe-41e2-a3fb-fa8b583c3087"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "16ee91c4-e4ab-483d-96d7-383f56ae8b0d",
-                "386b95d4-5f20-4144-8c71-facdf6149896",
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "679c8e42-ccdc-4d59-86af-f10f7ee27607",
-                "6c2615bb-ce98-4fb9-957d-f52fd0a36338",
-                "982ddf21-2587-4804-8269-5de859d99c5d",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
-                "f69ccd67-0331-4af9-a980-5783cc86603a",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859",
-                "f9960927-b06e-4d93-9f7e-88adba7aece8",
-                "fd56e344-372e-4810-93e4-b0b61115c5e1",
-                "fe739162-c493-480d-aafc-526cb5edd3d3"
-            ]
-        }
-    },
-    {
-        "question": "Welche Faktoren beeinflussen die Qualit\u00e4t eines RAG-Systems?",
-        "must_contain": [
-            "Sprachmodell",
-            "Chunking",
-            "Embedding-Modell",
-            "Retrieval-Strategie",
-            "Evaluation",
-            "Reranker"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "0fa68ae5-d2c0-42fb-97ca-cda5ddc2e004",
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "30776a51-4da8-4a43-be69-b548f6b170c2",
-                "415f1fcf-e89c-4095-b3d8-17f6dc377fc6",
-                "46d9b7ca-08de-488e-a386-18b942af2173",
-                "51d462cd-fe85-49be-9d2d-e62ba64fab4c",
-                "698821d6-a71f-453d-b332-2b35d6b77e38",
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "91b91991-352c-4957-bb62-4e385075f74f",
-                "9b021efa-5bbf-457e-b980-9c38279bfbb6",
-                "a9ccef95-f6ee-4bce-a837-60aa8a217e7d",
-                "b135760d-c868-4e28-95b9-620def12f539",
-                "c0aaf482-407e-4da4-91c7-33737e607ff2",
-                "e9a9c2cb-c26e-46b9-9e97-a780a0057b95",
-                "fadac078-93a5-4cd8-97d7-f4c81b0d2a99"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "280c204d-b0a6-4cc3-809c-1a8b6a6229d0",
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "6c2615bb-ce98-4fb9-957d-f52fd0a36338",
-                "6c3bcbaf-d27a-4d60-ac9a-dcdc88c1994b",
-                "830e184d-578e-4b4f-92a2-3b26c2f67be9",
-                "a644589a-cb5f-4a0f-9732-9cbf3b1ca14c",
-                "bedc9fee-3829-4886-86cf-17db025edb8a",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859",
-                "f9960927-b06e-4d93-9f7e-88adba7aece8",
-                "fd56e344-372e-4810-93e4-b0b61115c5e1",
-                "fe739162-c493-480d-aafc-526cb5edd3d3"
-            ]
-        }
-    },
-    {
-        "question": "Wer hat Java entwickelt?",
-        "any_group": [
-            [
-                "keine Antwort",
-                "nicht enthalten",
-                "nicht finden",
-                "wei\u00df ich nicht",
-                "nicht im Kontext",
-                "keine Information"
-            ]
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [],
-            "AiJourney_nomic-embed-text": []
-        }
-    },
-    {
-        "question": "Was ist Kubernetes?",
-        "any_group": [
-            [
-                "keine Antwort",
-                "nicht enthalten",
-                "nicht finden",
-                "wei\u00df ich nicht",
-                "nicht im Kontext",
-                "keine Information"
-            ]
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [],
-            "AiJourney_nomic-embed-text": []
-        }
-    },
-    {
-        "question": "Wer gewann die Fu\u00dfball-WM 2014?",
-        "any_group": [
-            [
-                "keine Antwort",
-                "nicht enthalten",
-                "nicht finden",
-                "wei\u00df ich nicht",
-                "nicht im Kontext",
-                "keine Information"
-            ]
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [],
-            "AiJourney_nomic-embed-text": []
-        }
-    },
-    {
-        "question": "Wer hat Python entwickelt?",
-        "must_contain": [
-            "Guido van Rossum"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "c949463e-29b1-4854-840b-baa6668791f6"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "679c8e42-ccdc-4d59-86af-f10f7ee27607"
-            ],
-            "AiJourney_text-embedding-3-small": [
-                "8d8920dc-6cac-4938-91fa-dfe857bec489"
-            ]
-        }
-    },
-    {
-        "question": "Was ist Bedrock?",
-        "must_contain": [
-            "AWS-Service",
-            "generative KI",
-            "Foundation Models",
-            "AWS-Infrastruktur"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "e2be46b5-2779-4c15-9b06-babf83cc2fc0"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "3f2e0355-7d98-45d4-be80-01c7967bf53f",
-                "71646582-b910-4a76-98ad-4098703358ca"
-            ],
-            "AiJourney_text-embedding-3-small": [
-                "3b2f008e-d648-4b45-becc-7913f298cc88",
-                "6009294a-23db-4f34-8658-5a2044278a10"
-            ]
-        }
-    },
-    {
-        "question": "Was ist Qdrant?",
-        "must_contain": [
-            "Indexstrukturen",
-            "Embeddings",
-            "Metadaten",
-            "Similarity Searches",
-            "Vector Database"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "a9ccef95-f6ee-4bce-a837-60aa8a217e7d",
-                "b135760d-c868-4e28-95b9-620def12f539"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "c46fc917-08de-486d-a21a-f450c819ac50"
-            ],
-            "AiJourney_text-embedding-3-small": [
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
-                "e4f47ef9-2d31-462a-ae55-31aa62e52fc0"
-            ]
-        }
-    },
-    {
-        "question": "Welche Datenbank eignet sich f\u00fcr Embeddings?",
-        "must_contain": [
-            "Vector Databases",
-            "Similarity Searches",
-            "Qdrant",
-            "Pinecone",
-            "Weaviate",
-            "Milvus"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "30776a51-4da8-4a43-be69-b548f6b170c2",
-                "698821d6-a71f-453d-b332-2b35d6b77e38",
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "b135760d-c868-4e28-95b9-620def12f539"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859"
-            ],
-            "AiJourney_text-embedding-3-small": [
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
-                "76dbb25d-2656-4e96-b085-9bffcf666e08",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
-                "d97dbddc-7b0b-4447-9f8f-6138c33fe744"
-            ]
-        }
-    },
-    {
-        "question": "Wie speichert man Vektoren?",
-        "must_contain": [
-            "Embeddings",
-            "Vector Databases",
-            "Hochdimensionale Vektorr\u00e4ume",
-            "Optimierte Speicherung"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "9a219c65-c51f-4791-ad99-0549f9eb1efa",
-                "b135760d-c868-4e28-95b9-620def12f539"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "5e282523-c8bf-4cde-a85e-c2ab8096adc6",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859"
-            ],
-            "AiJourney_text-embedding-3-small": [
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
-                "947fec29-ba99-44bb-b341-baa8d2fb25e8",
-                "d97dbddc-7b0b-4447-9f8f-6138c33fe744"
-            ]
-        }
-    },
-    {
-        "question": "Welche L\u00f6sung kann semantische Suche durchf\u00fchren?",
-        "must_contain": [
-            "Embeddings",
-            "Vektoren",
-            "Vektorraum",
-            "Bedeutung",
-            "Semantik"
-        ],
-        "expected_chunks": {
-            "AiJourney_bge-m3": [
-                "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "46d9b7ca-08de-488e-a386-18b942af2173",
-                "51d462cd-fe85-49be-9d2d-e62ba64fab4c",
-                "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
-                "8795180f-8257-4363-843e-537b17c14843",
-                "8d75888d-cebc-4d69-8d6e-420d0a77710d",
-                "93eff6a3-c193-4db5-90ff-97dc8b5d7019",
-                "9b021efa-5bbf-457e-b980-9c38279bfbb6",
-                "a9ccef95-f6ee-4bce-a837-60aa8a217e7d",
-                "b135760d-c868-4e28-95b9-620def12f539",
-                "c949463e-29b1-4854-840b-baa6668791f6",
-                "f9269a58-45fe-41e2-a3fb-fa8b583c3087"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "16ee91c4-e4ab-483d-96d7-383f56ae8b0d",
-                "386b95d4-5f20-4144-8c71-facdf6149896",
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "679c8e42-ccdc-4d59-86af-f10f7ee27607",
-                "6c2615bb-ce98-4fb9-957d-f52fd0a36338",
-                "982ddf21-2587-4804-8269-5de859d99c5d",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
-                "f69ccd67-0331-4af9-a980-5783cc86603a",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859",
-                "f9960927-b06e-4d93-9f7e-88adba7aece8",
-                "fd56e344-372e-4810-93e4-b0b61115c5e1",
-                "fe739162-c493-480d-aafc-526cb5edd3d3"
-            ],
-            "AiJourney_text-embedding-3-small": [
-                "47ad70f6-a88b-41d7-815f-0ea2a985b2e8",
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
-                "6009294a-23db-4f34-8658-5a2044278a10",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
-                "89665cab-8e6a-466d-948b-8bd83ed89235",
-                "8d8920dc-6cac-4938-91fa-dfe857bec489",
-                "93516877-382d-4513-b7c0-36ef93ea2a25",
-                "9e4cae03-849b-4acf-9b76-8d7c0de4ee74",
                 "a6e425d2-224c-43d5-a54c-4c7d57ed33c7",
                 "b4723a63-f8b3-4e8f-8f4a-093fb0cbe781",
-                "d10ae2cb-0113-41af-b758-36c394512ee1",
-                "d97dbddc-7b0b-4447-9f8f-6138c33fe744",
-                "e4f47ef9-2d31-462a-ae55-31aa62e52fc0"
-            ]
-        }
-    },
-    {
-        "question": "Welche Faktoren beeinflussen die Qualit\u00e4t eines RAG-Systems?",
-        "must_contain": [
-            "Sprachmodell",
-            "Chunking",
-            "Embedding-Modell",
-            "Retrieval-Strategie",
-            "Evaluation",
-            "Reranker"
-        ],
-        "expected_chunks": {
+                "c3d350c7-87d3-4342-872c-09ef7bfcd553",
+                "d97dbddc-7b0b-4447-9f8f-6138c33fe744"
+            ],
+            "AiJourney_nomic-embed-text": [
+                "280c204d-b0a6-4cc3-809c-1a8b6a6229d0",
+                "5e282523-c8bf-4cde-a85e-c2ab8096adc6",
+                "6c2615bb-ce98-4fb9-957d-f52fd0a36338",
+                "830e184d-578e-4b4f-92a2-3b26c2f67be9",
+                "982ddf21-2587-4804-8269-5de859d99c5d",
+                "b3dff8dc-a151-4c29-ad6f-52df863d53d7",
+                "bedc9fee-3829-4886-86cf-17db025edb8a",
+                "c46fc917-08de-486d-a21a-f450c819ac50",
+                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
+                "f9960927-b06e-4d93-9f7e-88adba7aece8",
+                "fd56e344-372e-4810-93e4-b0b61115c5e1"
+            ],
             "AiJourney_bge-m3": [
-                "0fa68ae5-d2c0-42fb-97ca-cda5ddc2e004",
                 "2ccfb28c-931b-491b-b1e6-2f6d23a97b5d",
-                "30776a51-4da8-4a43-be69-b548f6b170c2",
                 "415f1fcf-e89c-4095-b3d8-17f6dc377fc6",
                 "46d9b7ca-08de-488e-a386-18b942af2173",
                 "51d462cd-fe85-49be-9d2d-e62ba64fab4c",
                 "698821d6-a71f-453d-b332-2b35d6b77e38",
                 "6d3d6c14-ab71-40e6-b19a-fb1a4ccf2059",
+                "835d604d-6a49-4be9-8df0-00f930232673",
+                "8d75888d-cebc-4d69-8d6e-420d0a77710d",
                 "91b91991-352c-4957-bb62-4e385075f74f",
-                "9b021efa-5bbf-457e-b980-9c38279bfbb6",
                 "a9ccef95-f6ee-4bce-a837-60aa8a217e7d",
-                "b135760d-c868-4e28-95b9-620def12f539",
                 "c0aaf482-407e-4da4-91c7-33737e607ff2",
-                "e9a9c2cb-c26e-46b9-9e97-a780a0057b95",
-                "fadac078-93a5-4cd8-97d7-f4c81b0d2a99"
-            ],
-            "AiJourney_nomic-embed-text": [
-                "280c204d-b0a6-4cc3-809c-1a8b6a6229d0",
-                "5630c285-7e6e-4870-9a22-c186ec553432",
-                "6c2615bb-ce98-4fb9-957d-f52fd0a36338",
-                "6c3bcbaf-d27a-4d60-ac9a-dcdc88c1994b",
-                "830e184d-578e-4b4f-92a2-3b26c2f67be9",
-                "a644589a-cb5f-4a0f-9732-9cbf3b1ca14c",
-                "bedc9fee-3829-4886-86cf-17db025edb8a",
-                "c46fc917-08de-486d-a21a-f450c819ac50",
-                "d52fbe7c-6bc6-4259-8e96-68143f33643d",
-                "f88d6558-0b5a-49a5-b0ad-1a607edd5859",
-                "f9960927-b06e-4d93-9f7e-88adba7aece8",
-                "fd56e344-372e-4810-93e4-b0b61115c5e1",
-                "fe739162-c493-480d-aafc-526cb5edd3d3"
-            ],
-            "AiJourney_text-embedding-3-small": [
-                "2d33c12a-9197-430b-a06f-02800828e2f9",
-                "47ad70f6-a88b-41d7-815f-0ea2a985b2e8",
-                "4f7be8f6-330a-462c-a02f-8f46a2b53417",
-                "72aa921a-9931-4ea0-b3aa-7b7d1701d910",
-                "88cc6964-7a12-4ba1-baa5-6512bbdc235c",
-                "89c34a32-21ea-4bf4-85e0-d03453cfb2af",
-                "93516877-382d-4513-b7c0-36ef93ea2a25",
-                "947fec29-ba99-44bb-b341-baa8d2fb25e8",
-                "94aa75b8-64b0-4864-bd9d-7517fc34c68c",
-                "b4723a63-f8b3-4e8f-8f4a-093fb0cbe781",
-                "c3d350c7-87d3-4342-872c-09ef7bfcd553"
+                "f9269a58-45fe-41e2-a3fb-fa8b583c3087",
+                "fe46a642-a530-4752-92b3-7e928e08f1c4"
             ]
         }
     },
@@ -782,9 +239,9 @@
             ]
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [],
+            "AiJourney_text-embedding-3-small": [],
             "AiJourney_nomic-embed-text": [],
-            "AiJourney_text-embedding-3-small": []
+            "AiJourney_bge-m3": []
         }
     },
     {
@@ -800,9 +257,9 @@
             ]
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [],
+            "AiJourney_text-embedding-3-small": [],
             "AiJourney_nomic-embed-text": [],
-            "AiJourney_text-embedding-3-small": []
+            "AiJourney_bge-m3": []
         }
     },
     {
@@ -818,9 +275,9 @@
             ]
         ],
         "expected_chunks": {
-            "AiJourney_bge-m3": [],
+            "AiJourney_text-embedding-3-small": [],
             "AiJourney_nomic-embed-text": [],
-            "AiJourney_text-embedding-3-small": []
+            "AiJourney_bge-m3": []
         }
     }
 ]

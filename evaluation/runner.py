@@ -89,7 +89,7 @@ class Runner:
 
         return Runtime(
             total_runtime=total_runtime,
-            query_expansion_runtime=median_for("query_expansion_runtime"),
+            query_processing_runtime=median_for("query_processing_runtime"),
             retrieval_runtime=median_for("retrieval_runtime"),
             reranking_runtime=median_for("reranking_runtime"),
             context_building_runtime=median_for("context_building_runtime"),

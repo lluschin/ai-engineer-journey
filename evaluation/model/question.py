@@ -33,7 +33,7 @@ class Experiment(BaseModel):
 
 class Runtime(BaseModel):
     total_runtime: float
-    query_expansion_runtime: float | None = None
+    query_processing_runtime: float | None = None
     retrieval_runtime: float | None = None
     reranking_runtime: float | None = None
     context_building_runtime: float | None = None
