@@ -1,5 +1,5 @@
 from ollama import AsyncClient
-from services.retrieval.retrieval_service import RetrievalService
+from src.services.retrieval.retrieval_service import RetrievalService
 
 
 class OllamaRetrieval(RetrievalService):

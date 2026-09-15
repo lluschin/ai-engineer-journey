@@ -1,5 +1,5 @@
-from services.llm.ollama_llm import OllamaLLM
-from services.llm.openai_llm import OpenAiLLM
+from src.services.llm.ollama_llm import OllamaLLM
+from src.services.llm.openai_llm import OpenAiLLM
 
 def create_ollama_llm(model) ->  OllamaLLM:
     return OllamaLLM(model)

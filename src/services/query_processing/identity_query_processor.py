@@ -1,4 +1,4 @@
-from services.query_processing.query_processor import QueryProcessor
+from src.services.query_processing.query_processor import QueryProcessor
 
 
 class IdentityQueryProcessor(QueryProcessor):    

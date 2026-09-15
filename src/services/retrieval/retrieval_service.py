@@ -1,8 +1,8 @@
 import logging
 
-from services.chunking_service import ChunkService
-from services.qdrant_service import QdrantService
-from models.chat_models import Source
+from src.services.chunking_service import ChunkService
+from src.services.qdrant_service import QdrantService
+from src.models.chat_models import Source
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-from models.chat_models import Source
+from src.models.chat_models import Source
 
 class SimpleContextBuilder:
 

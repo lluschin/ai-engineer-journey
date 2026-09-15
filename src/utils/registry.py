@@ -4,17 +4,17 @@ import logging
 
 from collections.abc import Callable
 
-from services.llm.llm_service import LLMService
-from services.retrieval.retrieval_service import RetrievalService
-from services.ranking.identity_ranker import IdentityRanker
-from services.context_builder.simple_context_builder import SimpleContextBuilder
-from services.query_processing.query_processor import QueryProcessor
+from src.services.llm.llm_service import LLMService
+from src.services.retrieval.retrieval_service import RetrievalService
+from src.services.ranking.identity_ranker import IdentityRanker
+from src.services.context_builder.simple_context_builder import SimpleContextBuilder
+from src.services.query_processing.query_processor import QueryProcessor
 
-import utils.factories.llm_service_factory as llm_service_factory
-import utils.factories.retrieval_service_factory as retrieval_service_factory
-import utils.factories.ranking_service_factory as ranking_service_factory
-import utils.factories.context_builder_factory as context_builder_factory
-import utils.factories.query_processor_factory as query_processor_factory
+import src.utils.factories.llm_service_factory as llm_service_factory
+import src.utils.factories.retrieval_service_factory as retrieval_service_factory
+import src.utils.factories.ranking_service_factory as ranking_service_factory
+import src.utils.factories.context_builder_factory as context_builder_factory
+import src.utils.factories.query_processor_factory as query_processor_factory
 
 LLM_SERVICE: dict[
     str,
@@ -61,25 +61,14 @@ QUERY_EXPANDER : dict[
 logger = logging.getLogger(__name__)
 
 
-class ServiceRegistry:
-
-    _instance = None 
-
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
-    
+class ServiceRegistry:    
 
     def __init__(self):
-        if not getattr(self, '_is_initialized', False):
-            self.llm_service: LLMService = None
-            self.retrieval_service: RetrievalService = None
-            self.ranker: IdentityRanker = None
-            self.context_builder: SimpleContextBuilder = None
-            self.query_expander: QueryProcessor = None
-
-            self._is_initialized = True
+        self.llm_service: LLMService = None
+        self.retrieval_service: RetrievalService = None
+        self.ranker: IdentityRanker = None
+        self.context_builder: SimpleContextBuilder = None
+        self.query_expander: QueryProcessor = None
     
 
     def load_settings(self, settings: dict):

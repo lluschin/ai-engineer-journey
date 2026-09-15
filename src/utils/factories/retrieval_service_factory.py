@@ -1,5 +1,5 @@
-from services.retrieval.ollama_retrieval import OllamaRetrieval
-from services.retrieval.openai_retrieval import OpenAiRetrieval
+from src.services.retrieval.ollama_retrieval import OllamaRetrieval
+from src.services.retrieval.openai_retrieval import OpenAiRetrieval
 
 def create_ollama_retrieval(model, top_k) -> OllamaRetrieval:
     return OllamaRetrieval(model, top_k)

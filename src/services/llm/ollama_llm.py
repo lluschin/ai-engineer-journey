@@ -1,5 +1,5 @@
 from ollama import AsyncClient
-from services.llm.llm_service import LLMService
+from src.services.llm.llm_service import LLMService
 
 class OllamaLLM(LLMService):
 

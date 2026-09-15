@@ -1,5 +1,5 @@
 from openai import AsyncOpenAI
-from services.retrieval.retrieval_service import RetrievalService
+from src.services.retrieval.retrieval_service import RetrievalService
 
 
 class OpenAiRetrieval(RetrievalService):

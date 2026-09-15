@@ -22,6 +22,11 @@ class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=1000)
 
 
+class SimpleChatResponse(BaseModel):
+    message: str
+    llm_model: str
+
+
 class ChatResponse(BaseModel):
     message: str
     llm_model: str

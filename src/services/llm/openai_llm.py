@@ -1,5 +1,5 @@
 from openai import AsyncOpenAI
-from services.llm.llm_service import LLMService
+from src.services.llm.llm_service import LLMService
 
 class OpenAiLLM(LLMService):
 

@@ -1,7 +1,7 @@
 import logging
 
-from models.chat_models import Source
-from services.context_builder.simple_context_builder import SimpleContextBuilder
+from src.models.chat_models import Source
+from src.services.context_builder.simple_context_builder import SimpleContextBuilder
 
 _SCORE_THRESHOLD: float = 0.4
 _MAX_CHARS = 2500

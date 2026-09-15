@@ -1,7 +1,7 @@
 import logging
 
-from services.query_processing.query_processor import QueryProcessor
-from services.llm.llm_service import LLMService
+from src.services.query_processing.query_processor import QueryProcessor
+from src.services.llm.llm_service import LLMService
 
 logger = logging.getLogger(__name__)
 

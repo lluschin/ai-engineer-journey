@@ -1,6 +1,6 @@
-from services.query_processing.identity_query_processor import IdentityQueryProcessor
-from services.query_processing.llm_query_expander import LLMQueryExpander
-from services.query_processing.llm_query_rewriter import LLMQueryRewriter
+from src.services.query_processing.identity_query_processor import IdentityQueryProcessor
+from src.services.query_processing.llm_query_expander import LLMQueryExpander
+from src.services.query_processing.llm_query_rewriter import LLMQueryRewriter
 
 def create_identity_query_processor(_llm_service) -> IdentityQueryProcessor:
     return IdentityQueryProcessor()

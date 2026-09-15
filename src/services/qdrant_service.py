@@ -3,7 +3,7 @@ import uuid
 from qdrant_client import QdrantClient
 from qdrant_client.models import PointStruct
 
-from models.chat_models import Source
+from src.models.chat_models import Source
 
 class QdrantService:
     def __init__(self, collection_name:str):

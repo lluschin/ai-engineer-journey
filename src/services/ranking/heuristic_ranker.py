@@ -7,8 +7,8 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import SnowballStemmer
 from nltk.metrics import jaccard_distance
 
-from models.chat_models import Source
-from services.ranking.identity_ranker import IdentityRanker
+from src.models.chat_models import Source
+from src.services.ranking.identity_ranker import IdentityRanker
 
 logger = logging.getLogger(__name__)
 
