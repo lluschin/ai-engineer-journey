@@ -5,6 +5,7 @@ testresults
 
 # files
 roadmap.md
+.directory
 
 # runtime data
 env/.*/
