@@ -1,0 +1,19 @@
+title = "ollama rag config"
+
+[llm]
+service = "OllamaLLM"
+model = "qwen3:8b"
+
+[retrieval]
+service = "OllamaRetrieval"
+model = "bge-m3"
+top_k = 6
+
+[ranker]
+service = "IdentityRanker"
+
+[context_builder]
+service = "SimpleContextBuilder"
+
+[query_expander]
+service = "IdentityQueryProcessor"
