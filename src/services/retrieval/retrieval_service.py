@@ -19,6 +19,7 @@ class RetrievalService(ABC):
         self.qdrant = QdrantService(qdrant_collection_name)
         self.chunking = ChunkService()
         self.k = k
+        self.offset = None
 
 
     async def ingest_text(self, filePath: Path):
@@ -52,6 +53,12 @@ class RetrievalService(ABC):
             )
 
         return top_k_results
+
+
+    def get_next_entries(self):
+        points, next_offset = self.qdrant.get_entries(100, self.offset)
+        self.offset = next_offset
+        return (points, next_offset)
 
 
     @abstractmethod

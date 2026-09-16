@@ -8,4 +8,4 @@ class IdentityRanker:
 
 
     def rank(self, query: str, context: list[Source]) -> list[Source]:
-        return self.context
+        return context

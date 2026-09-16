@@ -33,5 +33,17 @@ class QdrantService:
         return result_list
 
 
+    def get_entries(self, limit: int, offset):
+        points, next_offset = self.client.scroll(
+            collection_name=self.collection_name,
+            limit=limit,
+            offset=offset,
+            with_payload=True,
+            with_vectors=False,
+        )
+
+        return (points, next_offset)
+
+
 if __name__ == "__main__":
     pass
