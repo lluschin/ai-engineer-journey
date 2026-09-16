@@ -1,4 +1,7 @@
 import logging
+import uuid
+
+from pathlib import Path
 
 from src.services.chunking_service import ChunkService
 from src.services.qdrant_service import QdrantService
@@ -18,16 +21,23 @@ class RetrievalService(ABC):
         self.k = k
 
 
-    def ingest_text(self, text: str):
+    async def ingest_text(self, filePath: Path):
+        with open(filePath, 'r') as fp:
+            text = fp.read()      
+
         chunks = self.chunking.chunk_by_paragraph(text)
-        self.add_documents(chunks)
+        for i, chunk in enumerate(chunks):
+            logger.info(f"add document: {chunk}")
 
+            name = filePath.name + str(i) + chunk
+            id = str(uuid.uuid5(uuid.NAMESPACE_DNS, name))
+            embedding = await self._create_embedding(chunk)
 
-    async def add_documents(self, docs: list[str]):
-        logger.info(f"Documents added: {docs}")
-        for doc in docs:
-            embedding = await self._create_embedding(doc)
-            self.qdrant.upload_embedding(embedding, doc)
+            self.qdrant.upload_embedding(
+                id=id,
+                vec=embedding,
+                doc=chunk,
+            )
 
 
     async def search(self, query: str) -> list[Source]:

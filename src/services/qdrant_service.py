@@ -1,5 +1,3 @@
-import uuid
-
 from qdrant_client import QdrantClient
 from qdrant_client.models import PointStruct
 
@@ -11,12 +9,12 @@ class QdrantService:
         self.collection_name = collection_name
     
 
-    def upload_embedding(self, vec, doc):
+    def upload_embedding(self, id, vec, doc):
         self.client.upsert(
             collection_name=self.collection_name,
             points=[
                 PointStruct(
-                    id=str(uuid.uuid4()),
+                    id=id,
                     vector=vec,
                     payload={"Infotext" : doc}
                 )
