@@ -38,6 +38,7 @@ RANKING_SERVICE : dict[
 ] = {
     "IdentityRanker": ranking_service_factory.create_identity_ranker,
     "HeuristicRanker": ranking_service_factory.create_heuristic_ranker,
+    "CrossEncoderRanker": ranking_service_factory.create_cross_encoder_ranker,
 }
 
 CONTEXT_BUILDER : dict[
