@@ -105,10 +105,17 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             runtime.reranking_runtime = time.perf_counter() - start_t
             logger.info("Reranking finished in %.2f seconds", runtime.reranking_runtime)
 
+            # compress the context
+            start_t = time.perf_counter()
+            logger.info("compress context.")
+            compressed_sources = service_registry.compressor.compress(original_query, ranked_sources)
+            runtime.compression_runtime = time.perf_counter() - start_t
+            logger.info("Compression finished in %.2f seconds", runtime.compression_runtime)
+
             # buildup context for llm
             start_t = time.perf_counter()
             logger.info("buildup context.")
-            context, nos = service_registry.context_builder.create_context(ranked_sources)
+            context, nos = service_registry.context_builder.create_context(compressed_sources)
             runtime.context_building_runtime = time.perf_counter() - start_t
             logger.info("Context Building finished in %.2f seconds", runtime.context_building_runtime)
 
@@ -129,7 +136,8 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
                 context_builder = type(service_registry.context_builder).__name__,
                 used_sources = nos,
                 ranking = type(service_registry.ranker).__name__,
-                sources = ranked_sources,
+                compression= type(service_registry.compressor).__name__,
+                sources = compressed_sources,
                 runtime=runtime,
             )
         

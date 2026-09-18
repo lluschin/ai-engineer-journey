@@ -12,6 +12,9 @@ top_k = 6
 [ranker]
 service = "IdentityRanker"
 
+[compressor]
+service = "IdentityCompressor"
+
 [context_builder]
 service = "SimpleContextBuilder"
 

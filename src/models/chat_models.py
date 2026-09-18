@@ -4,6 +4,7 @@ class Runtime(BaseModel):
     query_processing_runtime: float = -1
     retrieval_runtime: float = -1
     reranking_runtime: float = -1
+    compression_runtime: float = -1
     context_building_runtime: float = -1
     llm_call_runtime:float = -1
 
@@ -36,6 +37,7 @@ class ChatResponse(BaseModel):
     context_builder: str
     used_sources: int
     ranking: str
+    compression: str
     sources: list[Source] = Field(default_factory=list)
     runtime: Runtime
 

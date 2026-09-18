@@ -9,12 +9,14 @@ from src.services.retrieval.retrieval_service import RetrievalService
 from src.services.ranking.identity_ranker import IdentityRanker
 from src.services.context_builder.simple_context_builder import SimpleContextBuilder
 from src.services.query_processing.query_processor import QueryProcessor
+from src.services.compression.identity_compressor import IdentityCompressor
 
 import src.utils.factories.llm_service_factory as llm_service_factory
 import src.utils.factories.retrieval_service_factory as retrieval_service_factory
 import src.utils.factories.ranking_service_factory as ranking_service_factory
 import src.utils.factories.context_builder_factory as context_builder_factory
 import src.utils.factories.query_processor_factory as query_processor_factory
+import src.utils.factories.compressor_service_factory as compressor_service_factory
 
 LLM_SERVICE: dict[
     str,
@@ -41,6 +43,14 @@ RANKING_SERVICE : dict[
     "CrossEncoderRanker": ranking_service_factory.create_cross_encoder_ranker,
 }
 
+COMPRESSOR_SERVICE : dict[
+    str,
+    Callable[[], IdentityCompressor]
+] = {
+    "IdentityCompressor": compressor_service_factory.create_identity_compressor,
+    "HeuristicCompressor": compressor_service_factory.create_heuristic_compressor,
+}
+
 CONTEXT_BUILDER : dict[
     str,
     Callable[[], SimpleContextBuilder],
@@ -65,11 +75,12 @@ logger = logging.getLogger(__name__)
 class ServiceRegistry:    
 
     def __init__(self):
-        self.llm_service: LLMService = None
-        self.retrieval_service: RetrievalService = None
-        self.ranker: IdentityRanker = None
-        self.context_builder: SimpleContextBuilder = None
-        self.query_expander: QueryProcessor = None
+        self.llm_service: LLMService | None = None
+        self.retrieval_service: RetrievalService | None = None
+        self.ranker: IdentityRanker | None = None
+        self.compressor: IdentityCompressor | None = None
+        self.context_builder: SimpleContextBuilder | None = None
+        self.query_expander: QueryProcessor | None = None
     
 
     def load_settings(self, settings: dict):
@@ -96,6 +107,11 @@ class ServiceRegistry:
         logger.info(f'service: {service_name}')
         new_ranker = RANKING_SERVICE[service_name]()
 
+        logger.info("init compressor")
+        service_name = settings['compressor']['service']
+        logger.info(f'service: {service_name}')
+        new_compressor = COMPRESSOR_SERVICE[service_name]()
+
         logger.info("init context builder.")
         service_name = settings['context_builder']['service']
         logger.info(f'service: {service_name}')
@@ -111,6 +127,7 @@ class ServiceRegistry:
         self.ranker = new_ranker
         self.context_builder = new_context_builder
         self.query_expander = new_query_expander
+        self.compressor = new_compressor
 
 
     def load_settings_file(self, filepath: str):
