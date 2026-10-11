@@ -38,14 +38,15 @@ class RetrievalService(ABC):
                 id=id,
                 vec=embedding,
                 doc=chunk,
+                docName=filePath.name,
             )
 
 
-    async def search(self, query: str) -> list[Source]:
+    async def search(self, query: str, docName: str | None) -> list[Source]:
         logger.info(f"Searching for embeddings.")
         embedding = await self._create_embedding(query)
 
-        top_k_results = await self.qdrant.search(embedding, self.k)
+        top_k_results = await self.qdrant.search(embedding, self.k, docName)
 
         if not top_k_results:
             raise RuntimeError(

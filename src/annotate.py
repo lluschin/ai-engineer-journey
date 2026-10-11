@@ -76,7 +76,7 @@ def annotate():
                 print(f'questions - {i+1} / {len(inputQuestions)}')
                 print(f'chunks - {j+1} / {len(points)}')
                 print(question['question'], f'({len(question['expected_chunks'][collectionName])})', end='\n\n')
-                print(point.payload['Infotext'], end='\n\n')
+                print(point.payload['infotext'], end='\n\n')
         
                 prompt = f"""
                 look at the following chunk and check if it answers the given question fully or partially.
@@ -86,7 +86,7 @@ def annotate():
                 {question['question']}
         
                 chunk:
-                {point.payload['Infotext']}
+                {point.payload['infotext']}
                 """
         
                 response = client.chat(

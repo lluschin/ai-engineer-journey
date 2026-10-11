@@ -21,6 +21,7 @@ class Environment(BaseModel):
 class ChatRequest(BaseModel):
     user: str = Field(..., min_length=3)
     message: str = Field(..., min_length=1, max_length=1000)
+    source: str | None = None
 
 
 class SimpleChatResponse(BaseModel):

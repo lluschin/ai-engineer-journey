@@ -94,7 +94,7 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             # search database for embeddings
             start_t = time.perf_counter()
             logger.info("Searching for embeddings.")
-            sources = await service_registry.retrieval_service.search(expanded_query)
+            sources = await service_registry.retrieval_service.search(expanded_query, msg.source)
             runtime.retrieval_runtime = time.perf_counter() - start_t
             logger.info("Retrieval finished in %.2f seconds", runtime.retrieval_runtime)
 
