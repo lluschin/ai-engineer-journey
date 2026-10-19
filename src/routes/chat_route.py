@@ -1,15 +1,16 @@
 import logging
 import time
+from copy import deepcopy
 from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from src.models.chat_models import (
-    Runtime,
+    Stage,
     ChatRequest,
     ChatResponse,
     SimpleChatResponse,
     Environment,
 )
-from src.utils.registry import ServiceRegistry
+from src.utils.registry import ServiceRegistry, ServiceIdx
 
 logger = logging.getLogger(__name__)
 
@@ -78,67 +79,113 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
                     detail="Message must not be empty."
                 )
             
-            runtime = Runtime()
+            # Fresh execution records for this request, in pipeline order.
+            stages = {
+                service: Stage(name=service.value, params=deepcopy(service_registry.meta_info[service]))
+                for service in (
+                    ServiceIdx.QUERY_EXPANDER,
+                    ServiceIdx.RETRIEVAL_SERVICE,
+                    ServiceIdx.RANKING_SERVICE,
+                    ServiceIdx.COMPRESSOR_SERVICE,
+                    ServiceIdx.CONTEXT_BUILDER,
+                    ServiceIdx.LLM_SERVICE,
+                )
+            }
 
             # expand query for improved retrieval
-            start_t = time.perf_counter()
             logger.info("Processing query.")
             original_query = cleaned_message
+            start_t = time.perf_counter()
             expanded_query = await service_registry.query_expander.process(original_query)
-            runtime.query_processing_runtime = time.perf_counter() - start_t
-            logger.info("Processing query finished in %.2f seconds", runtime.query_processing_runtime)
+            runtime = time.perf_counter() - start_t
 
+            stage = stages[ServiceIdx.QUERY_EXPANDER]
+            stage.input = {"original_query": original_query}
+            stage.output = {"expanded_query": expanded_query}
+            stage.runtime = runtime
+
+            logger.info("Processing query finished in %.2f seconds", runtime)
             logger.info("Original query: %r", original_query)
             logger.info("Expanded query: %r", expanded_query)
             
+            stage = stages[ServiceIdx.RETRIEVAL_SERVICE]
+            stage.input = {"query": expanded_query, "source": msg.source}
+
             # search database for embeddings
             start_t = time.perf_counter()
             logger.info("Searching for embeddings.")
             sources = await service_registry.retrieval_service.search(expanded_query, msg.source)
-            runtime.retrieval_runtime = time.perf_counter() - start_t
-            logger.info("Retrieval finished in %.2f seconds", runtime.retrieval_runtime)
+            runtime = time.perf_counter() - start_t
+            logger.info("Retrieval finished in %.2f seconds", runtime)
+
+            stage.runtime = runtime
+            # Serialize now so later stages cannot mutate this snapshot.
+            stage.output = {"sources": [source.model_dump(mode="json") for source in sources]}
+
+            stage = stages[ServiceIdx.RANKING_SERVICE]
+            stage.input = {
+                "query": original_query,
+                "sources": [source.model_dump(mode="json") for source in sources],
+            }
 
             # rerank the given sources
             start_t = time.perf_counter()
             logger.info("rerank sources.")
             ranked_sources = service_registry.ranker.rank(original_query, sources)
-            runtime.reranking_runtime = time.perf_counter() - start_t
-            logger.info("Reranking finished in %.2f seconds", runtime.reranking_runtime)
+            runtime = time.perf_counter() - start_t
+            logger.info("Reranking finished in %.2f seconds", runtime)
+
+            stage.runtime = runtime
+            stage.output = {"sources": [source.model_dump(mode="json") for source in ranked_sources]}
+
+            stage = stages[ServiceIdx.COMPRESSOR_SERVICE]
+            stage.input = {
+                "query": original_query,
+                "sources": [source.model_dump(mode="json") for source in ranked_sources],
+            }
 
             # compress the context
             start_t = time.perf_counter()
             logger.info("compress context.")
             compressed_sources = service_registry.compressor.compress(original_query, ranked_sources)
-            runtime.compression_runtime = time.perf_counter() - start_t
-            logger.info("Compression finished in %.2f seconds", runtime.compression_runtime)
+            runtime = time.perf_counter() - start_t
+            logger.info("Compression finished in %.2f seconds", runtime)
+
+            stage.runtime = runtime
+            stage.output = {"sources": [source.model_dump(mode="json") for source in compressed_sources]}
+
+            stage = stages[ServiceIdx.CONTEXT_BUILDER]
+            stage.input = {"sources": [source.model_dump(mode="json") for source in compressed_sources]}
 
             # buildup context for llm
             start_t = time.perf_counter()
             logger.info("buildup context.")
             context, nos = service_registry.context_builder.create_context(compressed_sources)
-            runtime.context_building_runtime = time.perf_counter() - start_t
-            logger.info("Context Building finished in %.2f seconds", runtime.context_building_runtime)
+            runtime = time.perf_counter() - start_t
+            logger.info("Context Building finished in %.2f seconds", runtime)
 
-            # send promt to llm and create response
+            stage.runtime = runtime
+            # Keep the existing builder contract; do not infer selected IDs from its count.
+            stage.output = {"context": context, "used_sources": nos}
+
+            stage = stages[ServiceIdx.LLM_SERVICE]
+            stage.input = {"query": original_query, "context": context}
+
+            # send prompt to llm and create response
             start_t = time.perf_counter()
             logger.info("talk to llm.")
             response = await service_registry.llm_service.rag_chat(original_query, context)
-            runtime.llm_call_runtime = time.perf_counter() - start_t
-            logger.info("LLM call finished in %.2f seconds", runtime.llm_call_runtime)
+            runtime = time.perf_counter() - start_t
+            logger.info("LLM call finished in %.2f seconds", runtime)
+
+            stage.runtime = runtime
+            stage.output = {"answer": response}
 
             logger.info(f"Creating response for user {msg.user}")
             return ChatResponse(
-                message = response,
-                llm_model = service_registry.llm_service.model,
-                retrieval_model = service_registry.retrieval_service.model,
-                chunk_size = service_registry.retrieval_service.chunking.chunk_size,
-                top_k = service_registry.retrieval_service.k,
-                context_builder = type(service_registry.context_builder).__name__,
-                used_sources = nos,
-                ranking = type(service_registry.ranker).__name__,
-                compression= type(service_registry.compressor).__name__,
-                sources = compressed_sources,
-                runtime=runtime,
+                input_request=msg,
+                response=response,
+                stages=list(stages.values()),
             )
         
         except HTTPException:

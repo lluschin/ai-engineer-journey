@@ -1,3 +1,4 @@
+from typing import Any
 from pydantic import BaseModel, Field
 
 class Runtime(BaseModel):
@@ -7,6 +8,15 @@ class Runtime(BaseModel):
     compression_runtime: float = -1
     context_building_runtime: float = -1
     llm_call_runtime:float = -1
+
+
+class Stage(BaseModel):
+    name: str
+    runtime: float = -1
+    params: dict[str, Any] = Field(default_factory=dict)
+    input: dict[str, Any] = Field(default_factory=dict)
+    output: dict[str, Any] = Field(default_factory=dict)
+
 
 class Source(BaseModel):
     id: str
@@ -30,17 +40,9 @@ class SimpleChatResponse(BaseModel):
 
 
 class ChatResponse(BaseModel):
-    message: str
-    llm_model: str
-    retrieval_model: str
-    chunk_size: int
-    top_k: int
-    context_builder: str
-    used_sources: int
-    ranking: str
-    compression: str
-    sources: list[Source] = Field(default_factory=list)
-    runtime: Runtime
+    input_request: ChatRequest
+    response: str
+    stages: list[Stage] = Field(default_factory=list)
 
 
 class EmptyMessageException(Exception):

@@ -2,7 +2,11 @@ import sys
 import toml
 import logging
 
+from enum import StrEnum
 from collections.abc import Callable
+
+from copy import deepcopy
+from typing import Any
 
 from src.services.llm.llm_service import LLMService
 from src.services.retrieval.retrieval_service import RetrievalService
@@ -68,6 +72,14 @@ QUERY_EXPANDER : dict[
     "LLMQueryRewriter": query_processor_factory.create_llm_query_rewriter,
 }
 
+class ServiceIdx(StrEnum):
+    LLM_SERVICE = "llm"
+    RETRIEVAL_SERVICE = "retrieval"
+    RANKING_SERVICE = "ranking"
+    COMPRESSOR_SERVICE = "compression"
+    CONTEXT_BUILDER = "context_building"
+    QUERY_EXPANDER = "query_processing"
+
 
 logger = logging.getLogger(__name__)
 
@@ -81,46 +93,49 @@ class ServiceRegistry:
         self.compressor: IdentityCompressor | None = None
         self.context_builder: SimpleContextBuilder | None = None
         self.query_expander: QueryProcessor | None = None
+
+        # Configuration only; request inputs, outputs and timings live in the route.
+        self.meta_info: dict[ServiceIdx, dict[str, Any]] = {}
     
 
     def load_settings(self, settings: dict):
         logger.info("loading settings...")
 
-        logger.info("init llm service.")
-        service_name = settings['llm']['service']
-        model_name = settings['llm']['model']
-        logger.info(f'service: {service_name}')
-        logger.info(f'model: {model_name}')
-        new_llm_service = LLM_SERVICE[service_name](model_name)
+        # Build metadata locally and publish it only after all services loaded.
+        meta_info = {
+            ServiceIdx.LLM_SERVICE: deepcopy(settings['llm']),
+            ServiceIdx.RETRIEVAL_SERVICE: deepcopy(settings['retrieval']),
+            ServiceIdx.RANKING_SERVICE: deepcopy(settings['ranker']),
+            ServiceIdx.COMPRESSOR_SERVICE: deepcopy(settings['compressor']),
+            ServiceIdx.CONTEXT_BUILDER: deepcopy(settings['context_builder']),
+            ServiceIdx.QUERY_EXPANDER: deepcopy(settings['query_expander']),
+        }
 
-        logger.info("init retrieval service.")
-        service_name = settings['retrieval']['service']
-        model_name = settings['retrieval']['model']
-        top_k = settings['retrieval']['top_k']
-        logger.info(f'service: {service_name}')
-        logger.info(f'model: {model_name}')
-        logger.info(f'top_k: {top_k}')
-        new_retrieval_service = RETRIEVAL_SERVICE[service_name](model_name, top_k)
+        llm_params = meta_info[ServiceIdx.LLM_SERVICE]
+        logger.info("init llm service: %s", llm_params)
+        new_llm_service = LLM_SERVICE[llm_params['service']](llm_params['model'])
 
-        logger.info("init ranker.")
-        service_name = settings['ranker']['service']
-        logger.info(f'service: {service_name}')
-        new_ranker = RANKING_SERVICE[service_name]()
+        retrieval_params = meta_info[ServiceIdx.RETRIEVAL_SERVICE]
+        logger.info("init retrieval service: %s", retrieval_params)
+        new_retrieval_service = RETRIEVAL_SERVICE[retrieval_params['service']](
+            retrieval_params['model'], retrieval_params['top_k'],
+        )
 
-        logger.info("init compressor")
-        service_name = settings['compressor']['service']
-        logger.info(f'service: {service_name}')
-        new_compressor = COMPRESSOR_SERVICE[service_name]()
+        ranker_params = meta_info[ServiceIdx.RANKING_SERVICE]
+        logger.info("init ranker: %s", ranker_params)
+        new_ranker = RANKING_SERVICE[ranker_params['service']]()
 
-        logger.info("init context builder.")
-        service_name = settings['context_builder']['service']
-        logger.info(f'service: {service_name}')
-        new_context_builder = CONTEXT_BUILDER[service_name]()
+        compressor_params = meta_info[ServiceIdx.COMPRESSOR_SERVICE]
+        logger.info("init compressor: %s", compressor_params)
+        new_compressor = COMPRESSOR_SERVICE[compressor_params['service']]()
 
-        logger.info("init query expander.")
-        service_name = settings['query_expander']['service']
-        logger.info(f'service: {service_name}')
-        new_query_expander = QUERY_EXPANDER[service_name](new_llm_service)
+        context_builder_params = meta_info[ServiceIdx.CONTEXT_BUILDER]
+        logger.info("init context builder: %s", context_builder_params)
+        new_context_builder = CONTEXT_BUILDER[context_builder_params['service']]()
+
+        query_expander_params = meta_info[ServiceIdx.QUERY_EXPANDER]
+        logger.info("init query expander: %s", query_expander_params)
+        new_query_expander = QUERY_EXPANDER[query_expander_params['service']](new_llm_service)
 
         self.llm_service = new_llm_service
         self.retrieval_service = new_retrieval_service
@@ -128,6 +143,7 @@ class ServiceRegistry:
         self.context_builder = new_context_builder
         self.query_expander = new_query_expander
         self.compressor = new_compressor
+        self.meta_info = meta_info
 
 
     def load_settings_file(self, filepath: str):
