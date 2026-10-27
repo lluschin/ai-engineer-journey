@@ -1,7 +1,6 @@
 from datetime import datetime
 from statistics import mean, median
 
-from evaluation.metrics.metric import Metric
 from evaluation.model.question import (
     Experiment,
     ExperimentResult,
@@ -11,12 +10,13 @@ from evaluation.model.question import (
 )
 from evaluation.utils import helpers
 
+from src.utils.models.stage_model import StageIdx
+
 
 class Runner:
 
-    def __init__(self, experiment: Experiment, metrics: list[Metric]):
+    def __init__(self, experiment: Experiment):
         self.experiment = experiment
-        self.metrics = metrics
 
     def run(self) -> ExperimentResult:
         helpers.activate_configuration(self.experiment.configuration)
@@ -46,7 +46,7 @@ class Runner:
     def process_question(self, question: Question) -> QuestionResult:
         question_result = helpers.execute_question(question)
 
-        for metric in self.metrics:
+        for metric in self.experiment.metrics:
             question_result.metrics[metric.name] = metric.evaluate(question_result)
 
         return question_result
@@ -57,7 +57,7 @@ class Runner:
     ) -> dict[str, float | None]:
         aggregated: dict[str, float | None] = {}
 
-        for metric in self.metrics:
+        for metric in self.experiment.metrics:
             values = [
                 result.metrics[metric.name]
                 for result in results
@@ -74,24 +74,35 @@ class Runner:
         if not results:
             return None
 
-        def median_for(field_name: str) -> float | None:
-            values = [
-                value
-                for result in results
-                if (value := getattr(result.runtime, field_name)) is not None
-                and value >= 0
-            ]
+        def median_for(stage_name: str) -> float | None:
+
+            values: list[float] = list()
+            for result in results:
+                for stage in result.chat_response.stages:
+                    if stage.name == stage_name:
+                        if stage.runtime < 0.0:
+                            print("WARNING: runtime value out of bounce in stage", stage_name)
+                        else:
+                            values.append(stage.runtime)
+            
             return median(values) if values else None
 
-        total_runtime = median_for("total_runtime")
-        if total_runtime is None:
-            return None
+        total_runtime = [r.request_runtime for r in results]
+        total_runtime = median(total_runtime)
+
+        stage_runtimes = {
+            stages: median_for(stages)
+            for stages in (
+                StageIdx.QUERY_EXPANDER,
+                StageIdx.RETRIEVAL_STAGE,
+                StageIdx.RANKING_STAGE,
+                StageIdx.COMPRESSOR_STAGE,
+                StageIdx.CONTEXT_BUILDER,
+                StageIdx.LLM_STAGE,
+            )
+        }
 
         return Runtime(
             total_runtime=total_runtime,
-            query_processing_runtime=median_for("query_processing_runtime"),
-            retrieval_runtime=median_for("retrieval_runtime"),
-            reranking_runtime=median_for("reranking_runtime"),
-            context_building_runtime=median_for("context_building_runtime"),
-            llm_call_runtime=median_for("llm_call_runtime"),
+            stage_runtimes=stage_runtimes,
         )

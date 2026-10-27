@@ -1,5 +1,10 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel,ConfigDict, Field
 
+from evaluation.metrics.metric import Metric
+from src.utils.models.stage_model import StageIdx
+from src.models.chat_models import (
+    ChatResponse,
+)
 
 class Configuration(BaseModel):
     filepath: str
@@ -27,25 +32,21 @@ class Question(BaseModel):
 
 
 class Experiment(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
     configuration: Configuration
     questions: list[Question]
+    metrics: list[Metric]
 
 
 class Runtime(BaseModel):
     total_runtime: float
-    query_processing_runtime: float | None = None
-    retrieval_runtime: float | None = None
-    reranking_runtime: float | None = None
-    context_building_runtime: float | None = None
-    llm_call_runtime: float | None = None
+    stage_runtimes: dict[StageIdx, float | None]
 
 
 class QuestionResult(BaseModel):
     question: Question
-
-    answer: str
-    retrieval_sources: list[str]
-    runtime: Runtime
+    chat_response: ChatResponse
+    request_runtime: float
     metrics: dict[str, float | None] = Field(default_factory=dict)
 
 

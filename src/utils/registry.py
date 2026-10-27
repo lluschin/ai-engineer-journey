@@ -15,6 +15,8 @@ from src.services.context_builder.simple_context_builder import SimpleContextBui
 from src.services.query_processing.query_processor import QueryProcessor
 from src.services.compression.identity_compressor import IdentityCompressor
 
+from src.utils.models.stage_model import StageIdx
+
 import src.utils.factories.llm_service_factory as llm_service_factory
 import src.utils.factories.retrieval_service_factory as retrieval_service_factory
 import src.utils.factories.ranking_service_factory as ranking_service_factory
@@ -72,14 +74,6 @@ QUERY_EXPANDER : dict[
     "LLMQueryRewriter": query_processor_factory.create_llm_query_rewriter,
 }
 
-class ServiceIdx(StrEnum):
-    LLM_SERVICE = "llm"
-    RETRIEVAL_SERVICE = "retrieval"
-    RANKING_SERVICE = "ranking"
-    COMPRESSOR_SERVICE = "compression"
-    CONTEXT_BUILDER = "context_building"
-    QUERY_EXPANDER = "query_processing"
-
 
 logger = logging.getLogger(__name__)
 
@@ -95,7 +89,7 @@ class ServiceRegistry:
         self.query_expander: QueryProcessor | None = None
 
         # Configuration only; request inputs, outputs and timings live in the route.
-        self.meta_info: dict[ServiceIdx, dict[str, Any]] = {}
+        self.meta_info: dict[StageIdx, dict[str, Any]] = {}
     
 
     def load_settings(self, settings: dict):
@@ -103,37 +97,37 @@ class ServiceRegistry:
 
         # Build metadata locally and publish it only after all services loaded.
         meta_info = {
-            ServiceIdx.LLM_SERVICE: deepcopy(settings['llm']),
-            ServiceIdx.RETRIEVAL_SERVICE: deepcopy(settings['retrieval']),
-            ServiceIdx.RANKING_SERVICE: deepcopy(settings['ranker']),
-            ServiceIdx.COMPRESSOR_SERVICE: deepcopy(settings['compressor']),
-            ServiceIdx.CONTEXT_BUILDER: deepcopy(settings['context_builder']),
-            ServiceIdx.QUERY_EXPANDER: deepcopy(settings['query_expander']),
+            StageIdx.LLM_STAGE: deepcopy(settings['llm']),
+            StageIdx.RETRIEVAL_STAGE: deepcopy(settings['retrieval']),
+            StageIdx.RANKING_STAGE: deepcopy(settings['ranker']),
+            StageIdx.COMPRESSOR_STAGE: deepcopy(settings['compressor']),
+            StageIdx.CONTEXT_BUILDER: deepcopy(settings['context_builder']),
+            StageIdx.QUERY_EXPANDER: deepcopy(settings['query_expander']),
         }
 
-        llm_params = meta_info[ServiceIdx.LLM_SERVICE]
+        llm_params = meta_info[StageIdx.LLM_STAGE]
         logger.info("init llm service: %s", llm_params)
         new_llm_service = LLM_SERVICE[llm_params['service']](llm_params['model'])
 
-        retrieval_params = meta_info[ServiceIdx.RETRIEVAL_SERVICE]
+        retrieval_params = meta_info[StageIdx.RETRIEVAL_STAGE]
         logger.info("init retrieval service: %s", retrieval_params)
         new_retrieval_service = RETRIEVAL_SERVICE[retrieval_params['service']](
             retrieval_params['model'], retrieval_params['top_k'],
         )
 
-        ranker_params = meta_info[ServiceIdx.RANKING_SERVICE]
+        ranker_params = meta_info[StageIdx.RANKING_STAGE]
         logger.info("init ranker: %s", ranker_params)
         new_ranker = RANKING_SERVICE[ranker_params['service']]()
 
-        compressor_params = meta_info[ServiceIdx.COMPRESSOR_SERVICE]
+        compressor_params = meta_info[StageIdx.COMPRESSOR_STAGE]
         logger.info("init compressor: %s", compressor_params)
         new_compressor = COMPRESSOR_SERVICE[compressor_params['service']]()
 
-        context_builder_params = meta_info[ServiceIdx.CONTEXT_BUILDER]
+        context_builder_params = meta_info[StageIdx.CONTEXT_BUILDER]
         logger.info("init context builder: %s", context_builder_params)
         new_context_builder = CONTEXT_BUILDER[context_builder_params['service']]()
 
-        query_expander_params = meta_info[ServiceIdx.QUERY_EXPANDER]
+        query_expander_params = meta_info[StageIdx.QUERY_EXPANDER]
         logger.info("init query expander: %s", query_expander_params)
         new_query_expander = QUERY_EXPANDER[query_expander_params['service']](new_llm_service)
 

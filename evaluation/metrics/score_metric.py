@@ -3,10 +3,14 @@ from evaluation.model.question import QuestionResult
 
 
 class ScoreMetric(Metric):
-    name = "score"
+    NAME = "score"
+
+    def __init__(self, name: str | None = None):
+        super().__init__(ScoreMetric.NAME)
+
 
     def evaluate(self, result: QuestionResult) -> float | None:
-        answer = result.answer.casefold()
+        answer = result.chat_response.response.casefold()
         expected_terms = result.question.must_contain
         expected_groups = result.question.any_group
         total = len(expected_terms) + len(expected_groups)

@@ -42,12 +42,18 @@ class ExperimentReporter:
         )
 
         if result.median_runtime is not None:
+            rows.append(
+                (
+                    "median_runtime.total_runtime",
+                    self.format_value(result.median_runtime.total_runtime),
+                )
+            )
             rows.extend(
                 (
-                    f"median_runtime.{name}",
-                    self.format_value(value),
+                    f"median_runtime.stage_runtimes.{stage.value}",
+                    self.format_value(runtime),
                 )
-                for name, value in result.median_runtime.model_dump().items()
+                for stage, runtime in result.median_runtime.stage_runtimes.items()
             )
 
         key_width = max(len("Member"), *(len(key) for key, _ in rows))

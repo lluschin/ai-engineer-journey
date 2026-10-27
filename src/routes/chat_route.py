@@ -10,7 +10,8 @@ from src.models.chat_models import (
     SimpleChatResponse,
     Environment,
 )
-from src.utils.registry import ServiceRegistry, ServiceIdx
+from src.utils.registry import ServiceRegistry
+from src.utils.models.stage_model import StageIdx
 
 logger = logging.getLogger(__name__)
 
@@ -81,14 +82,14 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             
             # Fresh execution records for this request, in pipeline order.
             stages = {
-                service: Stage(name=service.value, params=deepcopy(service_registry.meta_info[service]))
-                for service in (
-                    ServiceIdx.QUERY_EXPANDER,
-                    ServiceIdx.RETRIEVAL_SERVICE,
-                    ServiceIdx.RANKING_SERVICE,
-                    ServiceIdx.COMPRESSOR_SERVICE,
-                    ServiceIdx.CONTEXT_BUILDER,
-                    ServiceIdx.LLM_SERVICE,
+                stage: Stage(name=stage.value, params=deepcopy(service_registry.meta_info[stage]))
+                for stage in (
+                    StageIdx.QUERY_EXPANDER,
+                    StageIdx.RETRIEVAL_STAGE,
+                    StageIdx.RANKING_STAGE,
+                    StageIdx.COMPRESSOR_STAGE,
+                    StageIdx.CONTEXT_BUILDER,
+                    StageIdx.LLM_STAGE,
                 )
             }
 
@@ -99,7 +100,7 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             expanded_query = await service_registry.query_expander.process(original_query)
             runtime = time.perf_counter() - start_t
 
-            stage = stages[ServiceIdx.QUERY_EXPANDER]
+            stage = stages[StageIdx.QUERY_EXPANDER]
             stage.input = {"original_query": original_query}
             stage.output = {"expanded_query": expanded_query}
             stage.runtime = runtime
@@ -108,7 +109,7 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             logger.info("Original query: %r", original_query)
             logger.info("Expanded query: %r", expanded_query)
             
-            stage = stages[ServiceIdx.RETRIEVAL_SERVICE]
+            stage = stages[StageIdx.RETRIEVAL_STAGE]
             stage.input = {"query": expanded_query, "source": msg.source}
 
             # search database for embeddings
@@ -122,7 +123,7 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             # Serialize now so later stages cannot mutate this snapshot.
             stage.output = {"sources": [source.model_dump(mode="json") for source in sources]}
 
-            stage = stages[ServiceIdx.RANKING_SERVICE]
+            stage = stages[StageIdx.RANKING_STAGE]
             stage.input = {
                 "query": original_query,
                 "sources": [source.model_dump(mode="json") for source in sources],
@@ -138,7 +139,7 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             stage.runtime = runtime
             stage.output = {"sources": [source.model_dump(mode="json") for source in ranked_sources]}
 
-            stage = stages[ServiceIdx.COMPRESSOR_SERVICE]
+            stage = stages[StageIdx.COMPRESSOR_STAGE]
             stage.input = {
                 "query": original_query,
                 "sources": [source.model_dump(mode="json") for source in ranked_sources],
@@ -154,7 +155,7 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             stage.runtime = runtime
             stage.output = {"sources": [source.model_dump(mode="json") for source in compressed_sources]}
 
-            stage = stages[ServiceIdx.CONTEXT_BUILDER]
+            stage = stages[StageIdx.CONTEXT_BUILDER]
             stage.input = {"sources": [source.model_dump(mode="json") for source in compressed_sources]}
 
             # buildup context for llm
@@ -168,7 +169,7 @@ def create_chat_router(configFilePath: Path) -> APIRouter:
             # Keep the existing builder contract; do not infer selected IDs from its count.
             stage.output = {"context": context, "used_sources": nos}
 
-            stage = stages[ServiceIdx.LLM_SERVICE]
+            stage = stages[StageIdx.LLM_STAGE]
             stage.input = {"query": original_query, "context": context}
 
             # send prompt to llm and create response

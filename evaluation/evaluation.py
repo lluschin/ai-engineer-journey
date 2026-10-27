@@ -1,8 +1,11 @@
 import argparse
+import toml
 import json
+
 from pathlib import Path
 from typing import Any, Sequence
 
+from evaluation.metrics.metric import Metric
 from evaluation.metrics.mrr_metric import MRRMetric
 from evaluation.metrics.precision_metric import PrecisionMetric
 from evaluation.metrics.recall_metric import RecallMetric
@@ -13,8 +16,16 @@ from evaluation.runner import Runner
 from evaluation.utils.helpers import load_configuration
 
 
+METRICS: dict[str, type[Metric]] = {
+    "score": ScoreMetric,
+    "recall": RecallMetric,
+    "precision": PrecisionMetric,
+    "mrr": MRRMetric,
+}
+
+
 def load_questions(
-    questions_filepath: str | Path,
+    questions_filepath: Path,
     retrieval_model: str,
 ) -> list[Question]:
     filepath = Path(questions_filepath)
@@ -90,30 +101,26 @@ def resolve_expected_chunks(
 
 
 def create_experiment(
-    config_filepath: str | Path,
-    questions_filepath: str | Path,
+    experiment_filepath: Path,
 ) -> Experiment:
-    configuration = load_configuration(str(config_filepath))
+    raw_data = toml.load(experiment_filepath)
+    config_filepath = (experiment_filepath.parent / raw_data["config"]).resolve()
+    questions_filepath = (experiment_filepath.parent / raw_data["questions"]).resolve()
+    
+    configuration = load_configuration(config_filepath)
     questions = load_questions(
         questions_filepath,
         configuration.retrieval_model,
     )
 
+    metrics = list()
+    for m in raw_data["metrics"]:
+        metrics.append(METRICS[m["type"]](m.get("stage")))
+
     return Experiment(
         configuration=configuration,
         questions=questions,
-    )
-
-
-def create_runner(experiment: Experiment) -> Runner:
-    return Runner(
-        experiment=experiment,
-        metrics=[
-            ScoreMetric(),
-            RecallMetric(),
-            PrecisionMetric(),
-            MRRMetric(),
-        ],
+        metrics=metrics,
     )
 
 
@@ -122,16 +129,10 @@ def build_parser() -> argparse.ArgumentParser:
         description="Evaluate a RAG configuration against a question dataset."
     )
     parser.add_argument(
-        "--config",
+        "--experiment",
         required=True,
         type=Path,
-        help="Path to the TOML configuration.",
-    )
-    parser.add_argument(
-        "--questions",
-        required=True,
-        type=Path,
-        help="Path to the questions JSON file.",
+        help="Path to the TOML experiment file.",
     )
     parser.add_argument(
         "--output-dir",
@@ -147,8 +148,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    experiment = create_experiment(args.config, args.questions)
-    result = create_runner(experiment).run()
+    experiment = create_experiment(args.experiment)
+
+    runner = Runner(experiment)
+    result = runner.run()
+    
     result_filepath = ExperimentReporter(args.output_dir).report(result)
     print(f"\nResult saved to {result_filepath}")
     return 0
