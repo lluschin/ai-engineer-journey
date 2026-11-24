@@ -8,6 +8,7 @@ model = "qwen3:8b"
 service = "OllamaRetrieval"
 model = "bge-m3"
 top_k = 6
+hybrid = true
 
 [ranker]
 service = "IdentityRanker"

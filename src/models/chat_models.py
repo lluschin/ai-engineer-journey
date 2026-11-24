@@ -21,6 +21,7 @@ class Stage(BaseModel):
 class Source(BaseModel):
     id: str
     document: str
+    source: str
     score: float
 
 

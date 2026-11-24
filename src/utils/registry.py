@@ -114,6 +114,9 @@ class ServiceRegistry:
         new_retrieval_service = RETRIEVAL_SERVICE[retrieval_params['service']](
             retrieval_params['model'], retrieval_params['top_k'],
         )
+        if retrieval_params['hybrid']:
+            new_retrieval_service = retrieval_service_factory.create_hybrid_retrival(new_retrieval_service)
+
 
         ranker_params = meta_info[StageIdx.RANKING_STAGE]
         logger.info("init ranker: %s", ranker_params)

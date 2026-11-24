@@ -44,7 +44,12 @@ class QdrantService:
             query_filter=queryFilter,
         ).points
 
-        result_list = [Source(id=h.id, document=h.payload["infotext"], score=h.score) for h in hits]
+        result_list = [Source(
+            id=h.id,
+            document=h.payload["infotext"],
+            source=h.payload["source"],
+            score=h.score,
+        ) for h in hits]
         return result_list
 
 
